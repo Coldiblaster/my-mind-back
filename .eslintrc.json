@@ -1,0 +1,29 @@
+{
+  "extends": [
+    "@rocketseat/eslint-config/node"
+  ],
+  "plugins": [
+    "simple-import-sort"
+  ],
+  "rules": {
+    "simple-import-sort/imports": "error",
+    "no-useless-constructor": "off",
+    "@typescript-eslint/no-unused-vars": "warn",
+    "@typescript-eslint/no-explicit-any": "warn",
+    "prettier/prettier": [
+      "warn",
+      {
+        "trailingComma": "all",
+        "arrowParens": "avoid",
+        "tabWidth": 2,
+        "endOfLine": "auto",
+        "printWidth": 80,
+        "singleQuote": true,
+        "tailwindFunctions": [
+          "cva",
+          "cx"
+        ]
+      }
+    ]
+  }
+}

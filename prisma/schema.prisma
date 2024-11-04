@@ -1,0 +1,143 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum ProfessionalRole {
+  ADMIN
+  SECRETARY
+  EMPLOYEE
+}
+
+model Professional {
+  id        String           @id @default(uuid())
+  clerkId   String           @map("clerk_id")
+  createdAt DateTime         @default(now()) @map("created_at")
+  updatedAt DateTime?        @updatedAt @map("updated_at")
+  companyId String           @map("company_id")
+  role      ProfessionalRole @default(ADMIN)
+  email     String           @unique
+  name      String?
+  document  String?
+
+  company        Company                    @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  phones         Phone[]
+  availabilities ProfessionalAvailability[]
+
+  @@map("professionals")
+}
+
+model Company {
+  id             String    @id @default(uuid())
+  createdAt      DateTime  @default(now()) @map("created_at")
+  updatedAt      DateTime? @updatedAt @map("updated_at")
+  addressId      String    @map("address_id")
+  businessTypeId Int?      @map("business_type_id")
+  customSegment  String?
+  name           String?
+
+  address         Address           @relation(fields: [addressId], references: [id], onDelete: Cascade)
+  businessType    BusinessType?     @relation(fields: [businessTypeId], references: [id])
+  professionals   Professional[]
+  openingHours    OpeningHours[]
+  companyServices CompanyServices[]
+  phones          Phone[]
+
+  @@map("companies")
+}
+
+model CompanyServices {
+  id        String    @id @default(uuid())
+  companyId String    @map("company_id")
+  serviceId String    @map("service_id")
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime? @updatedAt @map("updated_at")
+
+  company Company @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  service Service @relation(fields: [serviceId], references: [id], onDelete: Cascade)
+
+  @@map("company_services")
+}
+
+model Service {
+  id              String            @id @default(uuid())
+  description     String
+  value           Float
+  time            String
+  createdAt       DateTime          @default(now()) @map("created_at")
+  updatedAt       DateTime?         @updatedAt @map("updated_at")
+  companyServices CompanyServices[]
+
+  @@map("services")
+}
+
+model Phone {
+  id             String  @id @default(uuid())
+  phone          String
+  companyId      String? @map("company_id")
+  professionalId String? @map("professional_id")
+
+  company      Company?      @relation(fields: [companyId], references: [id])
+  professional Professional? @relation(fields: [professionalId], references: [id])
+
+  @@map("phones")
+}
+
+model BusinessType {
+  id      Int       @id @default(autoincrement())
+  icon    String
+  label   String
+  Company Company[]
+
+  @@map("business_types")
+}
+
+model Address {
+  id           String    @id @default(uuid())
+  cep          String
+  street       String
+  number       String
+  neighborhood String
+  city         String
+  state        String
+  complement   String?
+  createdAt    DateTime  @default(now()) @map("created_at")
+  updatedAt    DateTime? @updatedAt @map("updated_at")
+
+  company Company[]
+
+  @@map("address")
+}
+
+model OpeningHours {
+  id        String    @id @default(uuid())
+  companyId String?   @map("company_id") // Campo opcional para relação com `Company`
+  weekday   String
+  startTime String    @map("start_time")
+  endTime   String    @map("end_time")
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime? @updatedAt @map("updated_at")
+
+  company Company? @relation(fields: [companyId], references: [id], onDelete: Cascade)
+
+  @@map("opening_hours")
+}
+
+model ProfessionalAvailability {
+  id             String    @id @default(uuid())
+  professionalId String    @map("professional_id")
+  date           DateTime  @map("availability_date")
+  startTime      String    @map("start_time")
+  endTime        String    @map("end_time")
+  isBooked       Boolean   @default(false) @map("is_booked")
+  createdAt      DateTime  @default(now()) @map("created_at")
+  updatedAt      DateTime? @updatedAt @map("updated_at")
+
+  professional Professional @relation(fields: [professionalId], references: [id], onDelete: Cascade)
+
+  @@map("professional_availabilities")
+}
