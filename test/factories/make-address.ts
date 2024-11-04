@@ -18,7 +18,7 @@ export function makeAddress(
       cep: faker.location.zipCode(),
       city: faker.location.city(),
       neighborhood: faker.location.country(),
-      number: faker.number.int().toString(),
+      number: faker.number.int({ max: 500 }).toString(),
       state: faker.location.state(),
       street: faker.location.street(),
       ...override,
