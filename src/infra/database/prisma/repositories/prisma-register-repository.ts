@@ -29,16 +29,14 @@ export class PrismaRegisterRepository implements RegisterRepository {
     company: Company;
   }): Promise<void> {
     await this.prisma.$transaction(async prisma => {
-      // Criação do endereço
       const addressData = PrismaAddressMapper.toPrisma(data.address);
 
       await prisma.address.create({ data: addressData });
 
-      // Criação da empresa
       const companyData = PrismaCompanyMapper.toPrisma(data.company);
+
       await prisma.company.create({ data: companyData });
 
-      // Criação do profissional
       const professionalData = PrismaProfessionalMapper.toPrisma(
         data.professional,
       );
