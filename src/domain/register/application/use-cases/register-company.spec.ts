@@ -1,38 +1,28 @@
 import { makeAddress } from 'test/factories/make-address';
 import { makeCompany } from 'test/factories/make-company';
-import { InMemoryCompanyRepository } from 'test/repositories/in-memory-company-repository';
-import { InMemoryCompanyServicesRepository } from 'test/repositories/in-memory-company-services-repository';
-import { InMemoryOpeningHoursRepository } from 'test/repositories/in-memory-opening-hours-repository';
 import { InMemoryProfessionalRepository } from 'test/repositories/in-memory-professional-repository';
+import { InMemoryRegisterRepository } from 'test/repositories/in-memory-register-repository';
 
 import { RegisterCompanyUseCase } from './register-company';
 
 let inMemoryProfessionalRepository: InMemoryProfessionalRepository;
-let inMemoryCompanyRepository: InMemoryCompanyRepository;
-let inMemoryCompanyServicesRepository: InMemoryCompanyServicesRepository;
-let inMemoryOpeningHoursRepository: InMemoryOpeningHoursRepository;
+let inMemoryRegisterRepository: InMemoryRegisterRepository;
 
 let sut: RegisterCompanyUseCase;
 
 describe('Register company', () => {
   beforeEach(() => {
     inMemoryProfessionalRepository = new InMemoryProfessionalRepository();
-    inMemoryCompanyRepository = new InMemoryCompanyRepository();
-    inMemoryCompanyServicesRepository = new InMemoryCompanyServicesRepository();
-    inMemoryOpeningHoursRepository = new InMemoryOpeningHoursRepository();
+    inMemoryRegisterRepository = new InMemoryRegisterRepository();
 
     sut = new RegisterCompanyUseCase(
-      inMemoryCompanyRepository,
+      inMemoryRegisterRepository,
       inMemoryProfessionalRepository,
-      inMemoryCompanyServicesRepository,
-      inMemoryOpeningHoursRepository,
     );
   });
 
   it('should be able to register a new company', async () => {
-    const newAddress = makeAddress({
-      city: 'Rio de Janeiro',
-    });
+    const newAddress = makeAddress();
 
     const newCompany = makeCompany();
 
