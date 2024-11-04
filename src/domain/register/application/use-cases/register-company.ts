@@ -23,7 +23,7 @@ type RegisterCompanyUseCaseResponse = Either<
 @Injectable()
 export class RegisterCompanyUseCase {
   constructor(
-    private companyRepository: RegisterRepository,
+    private registerRepository: RegisterRepository,
     private professionalRepository: ProfessionalRepository,
   ) { }
 
@@ -71,7 +71,7 @@ export class RegisterCompanyUseCase {
       };
     });
 
-    await this.companyRepository.registerCompanyWithDetails({
+    await this.registerRepository.registerCompanyWithDetails({
       professional: newProfessional,
       address: newAddress,
       openingHours: operatingHours.days.map(day =>
