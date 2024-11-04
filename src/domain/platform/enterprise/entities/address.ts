@@ -1,4 +1,4 @@
-import { Entity } from '@/core/entities/entity';
+import { AggregateRoot } from '@/core/entities/aggregate-root';
 import { UniqueEntityID } from '@/core/entities/unique-entity-id';
 import { Optional } from '@/core/types/optional';
 
@@ -14,7 +14,7 @@ export interface AddressProps {
   updatedAt?: Date | null;
 }
 
-export class Address extends Entity<AddressProps> {
+export class Address extends AggregateRoot<AddressProps> {
   get cep() {
     return this.props.cep;
   }
