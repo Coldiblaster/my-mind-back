@@ -19,7 +19,7 @@ import { ZodValidationPipe } from '@/infra/http/pipes/zod-validation-pipe';
 
 @Controller('/register')
 @Public()
-export class CreateCompanyController {
+export class RegisterController {
   constructor(private registerCompany: RegisterCompanyUseCase) { }
 
   @Post()

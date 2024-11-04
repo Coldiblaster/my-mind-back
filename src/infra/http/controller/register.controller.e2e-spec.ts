@@ -8,11 +8,10 @@ import { AppModule } from '@/infra/app.module';
 import { DatabaseModule } from '@/infra/database/database.module';
 import { PrismaService } from '@/infra/database/prisma/prisma.service';
 
-describe('Create account (E2E)', () => {
+describe('Register account (E2E)', () => {
   let app: INestApplication;
+
   let prisma: PrismaService;
-  let addressFactory: AddressFactory;
-  let companyFactory: CompanyFactory;
 
   beforeAll(async () => {
     const moduleRef = await Test.createTestingModule({
@@ -23,29 +22,26 @@ describe('Create account (E2E)', () => {
     app = moduleRef.createNestApplication();
 
     prisma = moduleRef.get(PrismaService);
-    addressFactory = moduleRef.get(AddressFactory);
-    companyFactory = moduleRef.get(CompanyFactory);
 
     await app.init();
   });
 
   test('[POST] /register', async () => {
-    const address = await addressFactory.makePrismaAddress();
-    const company = await companyFactory.makePrismaCompany({
-      addressId: address.id,
-    });
-
-    console.log(address);
-
     const response = await request(app.getHttpServer())
       .post('/register')
       .send({
-        address,
+        address: {
+          cep: '47092',
+          street: 'Conner Orchard',
+          number: '4641161880018294',
+          neighborhood: 'Pakistan',
+          city: 'New Tod',
+          state: 'New York',
+        },
         email: 'johndoe@example.com',
         customSegment: 'Manutenção de celular',
-        clerkId: '1',
+        clerkId: '105',
         operatingHours: {
-          companyId: company.id,
           days: [
             {
               startTime: '8:00',
@@ -53,20 +49,56 @@ describe('Create account (E2E)', () => {
               isOpen: true,
               weekday: 'Segunda-Feira',
             },
+            {
+              startTime: '8:00',
+              endTime: '18:00',
+              isOpen: true,
+              weekday: 'Terça-Feira',
+            },
           ],
         },
+        services: [
+          {
+            description: 'Cabelo',
+            time: '00:50',
+            value: 30,
+          },
+          {
+            description: 'Barba',
+            time: '00:20',
+            value: 20,
+          },
+        ],
       });
-
-    console.log(response);
 
     expect(response.statusCode).toBe(201);
 
-    const userOnDatabase = await prisma.professional.findUnique({
+    const profissionalOnDatabase = await prisma.professional.findUnique({
       where: {
         email: 'johndoe@example.com',
+        clerkId: '105',
       },
     });
 
-    expect(userOnDatabase).toBeTruthy();
+    expect(profissionalOnDatabase).toBeTruthy();
+
+    const operatingHoursOnDatabase = await prisma.openingHours.findMany({
+      where: {
+        companyId: profissionalOnDatabase?.companyId,
+      },
+    });
+
+    expect(operatingHoursOnDatabase).toHaveLength(2);
+
+    const companyServices = await prisma.companyServices.findMany({
+      where: {
+        companyId: profissionalOnDatabase?.companyId,
+      },
+      select: {
+        service: true,
+      },
+    });
+
+    expect(companyServices).toHaveLength(2);
   });
 });
