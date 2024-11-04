@@ -20,4 +20,10 @@ export class InMemoryOpeningHoursRepository implements OpeningHoursRepository {
 
     DomainEvents.dispatchEventsForAggregate(openingHours.id);
   }
+
+  async save(openingHours: OpeningHours): Promise<void> {
+    const itemIndex = this.items.findIndex(item => item.id === openingHours.id);
+
+    this.items[itemIndex] = openingHours;
+  }
 }
