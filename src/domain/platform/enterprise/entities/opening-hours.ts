@@ -7,6 +7,7 @@ export interface OpeningHoursProps {
   weekday: string;
   startTime: string;
   endTime: string;
+  isOpen: boolean;
   createdAt: Date;
   updatedAt?: Date | null;
 }
@@ -28,6 +29,10 @@ export class OpeningHours extends Entity<OpeningHoursProps> {
     return this.props.endTime;
   }
 
+  get isOpen() {
+    return this.props.isOpen;
+  }
+
   get createdAt() {
     return this.props.createdAt;
   }
@@ -40,6 +45,8 @@ export class OpeningHours extends Entity<OpeningHoursProps> {
     props: Optional<OpeningHoursProps, 'createdAt'>,
     id?: UniqueEntityID,
   ) {
+    console.log('create', props);
+
     function parseTimeToDate(time: string): Date {
       const [hours, minutes] = time.split(':').map(Number);
       const date = new Date();

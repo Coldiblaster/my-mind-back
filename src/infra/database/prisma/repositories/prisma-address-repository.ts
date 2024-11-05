@@ -9,6 +9,15 @@ import { PrismaService } from '../prisma.service';
 @Injectable()
 export class PrismaAddressRepository implements AddressRepository {
   constructor(private prisma: PrismaService) { }
+
+  async create(address: Address): Promise<void> {
+    const data = PrismaAddressMapper.toPrisma(address);
+
+    await this.prisma.address.create({
+      data,
+    });
+  }
+
   async save(address: Address): Promise<void> {
     const data = PrismaAddressMapper.toPrisma(address);
 
