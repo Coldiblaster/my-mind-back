@@ -59,7 +59,6 @@ describe('Register company', () => {
       customSegment: 'Manutenção de celular',
       clerkId: '1',
       operatingHours: {
-        companyId: '1',
         days: [
           {
             startTime: '8:00',

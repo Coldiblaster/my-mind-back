@@ -2,16 +2,16 @@ import { Entity } from '@/core/entities/entity';
 import { UniqueEntityID } from '@/core/entities/unique-entity-id';
 import { Optional } from '@/core/types/optional';
 
-export interface CompanyServicesProps {
-  companyId: UniqueEntityID;
+export interface ProfessionalServicesProps {
+  professionalId: UniqueEntityID;
   serviceId: UniqueEntityID;
   createdAt: Date;
   updatedAt?: Date | null;
 }
 
-export class CompanyServices extends Entity<CompanyServicesProps> {
-  get companyId() {
-    return this.props.companyId;
+export class ProfessionalServices extends Entity<ProfessionalServicesProps> {
+  get professionalId() {
+    return this.props.professionalId;
   }
 
   get serviceId() {
@@ -27,10 +27,10 @@ export class CompanyServices extends Entity<CompanyServicesProps> {
   }
 
   static create(
-    props: Optional<CompanyServicesProps, 'createdAt'>,
+    props: Optional<ProfessionalServicesProps, 'createdAt'>,
     id?: UniqueEntityID,
   ) {
-    const companyServices = new CompanyServices(
+    const professionalServices = new ProfessionalServices(
       {
         ...props,
         createdAt: props.createdAt ?? new Date(),
@@ -38,6 +38,6 @@ export class CompanyServices extends Entity<CompanyServicesProps> {
       id,
     );
 
-    return companyServices;
+    return professionalServices;
   }
 }

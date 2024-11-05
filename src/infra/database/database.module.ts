@@ -1,18 +1,18 @@
 import { Module } from '@nestjs/common';
 
 import { AddressRepository } from '@/domain/platform/application/repositories/address-repository';
-import { CompanyServicesRepository } from '@/domain/platform/application/repositories/company-services-repository';
 import { OpeningHoursRepository } from '@/domain/platform/application/repositories/opening-hours-repository';
 import { ProfessionalRepository } from '@/domain/platform/application/repositories/professional-repository';
+import { ProfessionalServicesRepository } from '@/domain/platform/application/repositories/professional-services-repository';
 import { ServiceRepository } from '@/domain/platform/application/repositories/services-repository';
 import { RegisterRepository } from '@/domain/register/application/repositories/register-repository';
 
 import { CacheModule } from '../cache/cache.module';
 import { PrismaService } from './prisma/prisma.service';
 import { PrismaAddressRepository } from './prisma/repositories/prisma-address-repository';
-import { PrismaCompanyServicesRepository } from './prisma/repositories/prisma-company-services-repository';
 import { PrismaOpeningHoursRepository } from './prisma/repositories/prisma-opening-hours-repository ';
 import { PrismaProfessionalRepository } from './prisma/repositories/prisma-professional-repository';
+import { PrismaProfessionalServicesRepository } from './prisma/repositories/prisma-professional-services-repository';
 import { PrismaRegisterRepository } from './prisma/repositories/prisma-register-repository';
 import { PrismaServiceRepository } from './prisma/repositories/prisma-service-repository';
 
@@ -33,8 +33,8 @@ import { PrismaServiceRepository } from './prisma/repositories/prisma-service-re
       useClass: PrismaOpeningHoursRepository,
     },
     {
-      provide: CompanyServicesRepository,
-      useClass: PrismaCompanyServicesRepository,
+      provide: ProfessionalServicesRepository,
+      useClass: PrismaProfessionalServicesRepository,
     },
     {
       provide: AddressRepository,
@@ -50,7 +50,7 @@ import { PrismaServiceRepository } from './prisma/repositories/prisma-service-re
     RegisterRepository,
     ProfessionalRepository,
     OpeningHoursRepository,
-    CompanyServicesRepository,
+    ProfessionalServicesRepository,
     AddressRepository,
     ServiceRepository,
   ],

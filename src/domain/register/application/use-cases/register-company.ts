@@ -4,9 +4,9 @@ import { Either, left, right } from '@/core/either';
 import { ProfessionalRepository } from '@/domain/platform/application/repositories/professional-repository';
 import { Address } from '@/domain/platform/enterprise/entities/address';
 import { Company } from '@/domain/platform/enterprise/entities/company';
-import { CompanyServices } from '@/domain/platform/enterprise/entities/company-services';
 import { OpeningHours } from '@/domain/platform/enterprise/entities/opening-hours';
 import { Professional } from '@/domain/platform/enterprise/entities/professional';
+import { ProfessionalServices } from '@/domain/platform/enterprise/entities/professional-services';
 import { Service } from '@/domain/platform/enterprise/entities/service';
 
 import { RegisterRepository } from '../repositories/register-repository';
@@ -58,7 +58,7 @@ export class RegisterCompanyUseCase {
       role: 'EMPLOYEE',
     });
 
-    const companyServices = services.map(service => {
+    const professionalServices = services.map(service => {
       const newService = Service.create({
         description: service.description,
         time: service.time,
@@ -67,7 +67,7 @@ export class RegisterCompanyUseCase {
 
       return {
         newService,
-        companyId: newCompany.id,
+        professionalId: newProfessional.id,
       };
     });
 
@@ -77,11 +77,11 @@ export class RegisterCompanyUseCase {
       openingHours: operatingHours.days.map(day =>
         OpeningHours.create({ ...day, companyId: newCompany.id }),
       ),
-      services: companyServices.map(({ newService }) => newService),
-      companyServices: companyServices.map(({ newService }) =>
-        CompanyServices.create({
+      services: professionalServices.map(({ newService }) => newService),
+      professionalServices: professionalServices.map(({ newService }) =>
+        ProfessionalServices.create({
           serviceId: newService.id,
-          companyId: newCompany.id,
+          professionalId: newProfessional.id,
         }),
       ),
       company: newCompany,

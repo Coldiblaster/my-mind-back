@@ -2,17 +2,17 @@ import { Injectable } from '@nestjs/common';
 
 import { Address } from '@/domain/platform/enterprise/entities/address';
 import { Company } from '@/domain/platform/enterprise/entities/company';
-import { CompanyServices } from '@/domain/platform/enterprise/entities/company-services';
 import { OpeningHours } from '@/domain/platform/enterprise/entities/opening-hours';
 import { Professional } from '@/domain/platform/enterprise/entities/professional';
+import { ProfessionalServices } from '@/domain/platform/enterprise/entities/professional-services';
 import { Service } from '@/domain/platform/enterprise/entities/service';
 import { RegisterRepository } from '@/domain/register/application/repositories/register-repository';
 
 import { PrismaAddressMapper } from '../mappers/prisma-address-mapper';
 import { PrismaCompanyMapper } from '../mappers/prisma-company-mapper';
-import { PrismaCompanyServicesMapper } from '../mappers/prisma-company-services-mapper';
 import { PrismaOpeningHoursMapper } from '../mappers/prisma-opening-hours-mapper';
 import { PrismaProfessionalMapper } from '../mappers/prisma-professional-mapper';
+import { PrismaProfessionalServicesMapper } from '../mappers/prisma-professional-services-mapper';
 import { PrismaServiceMapper } from '../mappers/prisma-service-mapper';
 import { PrismaService } from '../prisma.service';
 
@@ -24,7 +24,7 @@ export class PrismaRegisterRepository implements RegisterRepository {
     professional: Professional;
     address: Address;
     openingHours: OpeningHours[];
-    companyServices: CompanyServices[];
+    professionalServices: ProfessionalServices[];
     services: Service[];
     company: Company;
   }): Promise<void> {
@@ -51,9 +51,9 @@ export class PrismaRegisterRepository implements RegisterRepository {
         });
       });
 
-      data.companyServices.map(async companyService => {
-        await prisma.companyServices.create({
-          data: PrismaCompanyServicesMapper.toPrisma(companyService),
+      data.professionalServices.map(async professionalService => {
+        await prisma.professionalService.create({
+          data: PrismaProfessionalServicesMapper.toPrisma(professionalService),
         });
       });
 

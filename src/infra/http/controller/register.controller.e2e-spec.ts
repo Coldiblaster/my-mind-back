@@ -90,15 +90,15 @@ describe('Register account (E2E)', () => {
 
     expect(operatingHoursOnDatabase).toHaveLength(2);
 
-    const companyServices = await prisma.companyServices.findMany({
+    const ProfessionalServices = await prisma.professionalService.findMany({
       where: {
-        companyId: profissionalOnDatabase?.companyId,
+        professionalId: profissionalOnDatabase?.id,
       },
       select: {
         service: true,
       },
     });
 
-    expect(companyServices).toHaveLength(2);
+    expect(ProfessionalServices).toHaveLength(2);
   });
 });
