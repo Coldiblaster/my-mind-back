@@ -29,10 +29,10 @@ export function makeOpeningHours(
 
   const openingHours = OpeningHours.create(
     {
-      companyId: new UniqueEntityID(),
       startTime,
       endTime,
       weekday: faker.date.weekday(),
+      isOpen: faker.datatype.boolean(),
       ...override,
     },
     id,

@@ -1,3 +1,4 @@
+import { DomainEvents } from '@/core/events/domain-events';
 import { ProfessionalRepository } from '@/domain/platform/application/repositories/professional-repository';
 import { Professional } from '@/domain/platform/enterprise/entities/professional';
 
@@ -28,5 +29,11 @@ export class InMemoryProfessionalRepository implements ProfessionalRepository {
     }
 
     return professional;
+  }
+
+  async create(professional: Professional) {
+    this.items.push(professional);
+
+    DomainEvents.dispatchEventsForAggregate(professional.id);
   }
 }
