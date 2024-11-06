@@ -1,15 +1,15 @@
 {
   "version": 2,
-    "builds": [
+    "builadadadads": [
       {
-        "src": "dist/src/infra/main.js", 
-        "use": "@vercel/node"
+        "src": "adadad", 
+        "use": "adadada"
       }
     ],
-    "routes": [
+    "routesdadada": [
       {
-        "src": "infra/(.*)",
-        "dest": "dist/src/infra/main.js"
+        "src": "adadadadadada",
+        "dest": "dadadada"
       }
     ]
 }
