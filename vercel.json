@@ -1,17 +1,6 @@
 {
   "version": 2,
-    "outputDirectory": "dist/src/infra/main.js",
-    "installCommand": "npm vercel-build",
-    "builds": [
-      {
-        "src": "dist/src/infra/main.js", 
-        "use": "@vercel/node"
-      }
-    ],
-    "routes": [
-      {
-        "src": "/(.*)",
-        "dest": "dist/src/infra/main.js"
-      }
-    ]
+  "builds": [{ "src": "./dist/src/infra/main.js", "use": "@vercel/node" }],
+  "routes": [{ "src": "/(.*)", "dest": "./dist/src/infra/main.js" }]
 }
+
