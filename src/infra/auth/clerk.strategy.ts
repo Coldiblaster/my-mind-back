@@ -8,7 +8,7 @@ import { z } from 'zod';
 import { EnvService } from '../env/env.service';
 
 const tokenPayloadSchema = z.object({
-  userId: z.string().uuid(),
+  professionalId: z.string().uuid(),
 });
 
 export type UserPayload = z.infer<typeof tokenPayloadSchema>;
@@ -38,12 +38,12 @@ export class ClerkStrategy extends PassportStrategy(Strategy, 'clerk') {
 
     const auth = getAuth(req);
 
-    if (!auth.sessionClaims || !auth.sessionClaims.userId) {
+    if (!auth.sessionClaims || !auth.sessionClaims.professionalId) {
       throw new UnauthorizedException('Token inválido');
     }
 
     return {
-      userId: auth.sessionClaims.userId,
+      professionalId: auth.sessionClaims.professionalId,
     };
   }
 }

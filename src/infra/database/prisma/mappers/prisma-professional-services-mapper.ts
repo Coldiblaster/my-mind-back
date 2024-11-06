@@ -9,7 +9,7 @@ import { ProfessionalServices } from '@/domain/platform/enterprise/entities/prof
 export class PrismaProfessionalServicesMapper {
   static toDomain(raw: PrismaProfessionalServices): ProfessionalServices {
     if (!raw.professionalId || !raw.serviceId) {
-      throw new Error('Invalid company services type.');
+      throw new Error('Invalid professional services type.');
     }
 
     return ProfessionalServices.create(

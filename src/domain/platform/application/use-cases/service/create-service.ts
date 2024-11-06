@@ -1,22 +1,18 @@
 import { Injectable } from '@nestjs/common';
 
-import { Either, left, right } from '@/core/either';
+import { Either, right } from '@/core/either';
 import { UniqueEntityID } from '@/core/entities/unique-entity-id';
-import { Address } from '@/domain/platform/enterprise/entities/address';
-import { OpeningHours } from '@/domain/platform/enterprise/entities/opening-hours';
-import { Professional } from '@/domain/platform/enterprise/entities/professional';
 import { ProfessionalServices } from '@/domain/platform/enterprise/entities/professional-services';
 import { Service } from '@/domain/platform/enterprise/entities/service';
 
-import { CompanyRepository } from '../../repositories/company-repository';
 import { ProfessionalServicesRepository } from '../../repositories/professional-services-repository';
-import { ServiceRepository } from '../../repositories/services-repository';
+import { ServiceRepository } from '../../repositories/service-repository';
 
 interface CreateServiceUseCaseRequest {
   description: string;
   value: number;
   time: string;
-  companyId: string;
+  professionalId: string;
 }
 
 type CreateServiceUseCaseResponse = Either<
@@ -37,7 +33,7 @@ export class CreateServiceUseCase {
     description,
     time,
     value,
-    companyId,
+    professionalId,
   }: CreateServiceUseCaseRequest): Promise<CreateServiceUseCaseResponse> {
     const newService = Service.create({
       description,
@@ -49,7 +45,7 @@ export class CreateServiceUseCase {
 
     const newProfessionalServices = ProfessionalServices.create({
       serviceId: newService.id,
-      professionalId: new UniqueEntityID(companyId),
+      professionalId: new UniqueEntityID(professionalId),
     });
 
     await this.ProfessionalServicesRepository.create(newProfessionalServices);

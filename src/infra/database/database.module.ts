@@ -4,7 +4,7 @@ import { AddressRepository } from '@/domain/platform/application/repositories/ad
 import { OpeningHoursRepository } from '@/domain/platform/application/repositories/opening-hours-repository';
 import { ProfessionalRepository } from '@/domain/platform/application/repositories/professional-repository';
 import { ProfessionalServicesRepository } from '@/domain/platform/application/repositories/professional-services-repository';
-import { ServiceRepository } from '@/domain/platform/application/repositories/services-repository';
+import { ServiceRepository } from '@/domain/platform/application/repositories/service-repository';
 import { RegisterRepository } from '@/domain/register/application/repositories/register-repository';
 
 import { CacheModule } from '../cache/cache.module';
