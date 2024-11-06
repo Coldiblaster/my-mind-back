@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "builds": [{ "src": "./dist/src/infra/main.js", "use": "@vercel/node" }],
-  "routes": [{ "src": "/(.*)", "dest": "./dist/src/infra/main.js" }]
+  "builds": [{ "src": "dist/src/infra/main.js", "use": "@vercel/node" }],
+  "routes": [{ "src": "/(.*)", "dest": "dist/src/infra/main.js" }]
 }
 
