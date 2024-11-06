@@ -1,15 +1,17 @@
 {
   "version": 2,
-    "builadadadads": [
+    "outputDirectory": "dist/src/infra/main.js",
+    "installCommand": "npm vercel-build",
+    "builds": [
       {
-        "src": "adadad", 
-        "use": "adadada"
+        "src": "dist/src/infra/main.js", 
+        "use": "@vercel/node"
       }
     ],
-    "routesdadada": [
+    "routes": [
       {
-        "src": "adadadadadada",
-        "dest": "dadadada"
+        "src": "/(.*)",
+        "dest": "dist/src/infra/main.js"
       }
     ]
 }
