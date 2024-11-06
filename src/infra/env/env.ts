@@ -2,8 +2,6 @@ import { z } from 'zod';
 
 export const envSchema = z.object({
   DATABASE_URL: z.string().url(),
-  JWT_PRIVATE_KEY: z.string(),
-  JWT_PUBLIC_KEY: z.string(),
   CLERK_PUBLISHABLE_KEY: z.string(),
   CLERK_SECRET_KEY: z.string(),
   CLOUDFLARE_ACCOUNT_ID: z.string(),
