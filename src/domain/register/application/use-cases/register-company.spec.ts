@@ -30,7 +30,7 @@ describe('Register company', () => {
       address: makeAddress(),
       email: 'jonhdoe@example.com',
       customSegment: 'Manutenção de celular',
-      clerkId: '1',
+      providerId: '1',
       operatingHours: {
         days: [
           {
@@ -57,7 +57,7 @@ describe('Register company', () => {
       address: makeAddress(),
       email: 'existing@example.com',
       customSegment: 'Manutenção de celular',
-      clerkId: '1',
+      providerId: '1',
       operatingHours: {
         days: [
           {
@@ -83,7 +83,7 @@ describe('Register company', () => {
       address: newAddress,
       email: 'jonhdoe@example.com',
       customSegment: 'Manutenção de celular',
-      clerkId: '1',
+      providerId: '1',
       operatingHours: {
         days: [
           {
@@ -106,7 +106,7 @@ describe('Register company', () => {
       address: makeAddress(),
       email: 'jonhdoe@example.com',
       customSegment: 'Manutenção de celular',
-      clerkId: '1',
+      providerId: '1',
       operatingHours: {
         days: [
           {

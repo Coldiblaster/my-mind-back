@@ -40,7 +40,7 @@ describe('Register account (E2E)', () => {
         },
         email: 'johndoe@example.com',
         customSegment: 'Manutenção de celular',
-        clerkId: '105',
+        providerId: '105',
         operatingHours: {
           days: [
             {
@@ -76,7 +76,7 @@ describe('Register account (E2E)', () => {
     const profissionalOnDatabase = await prisma.professional.findUnique({
       where: {
         email: 'johndoe@example.com',
-        clerkId: '105',
+        providerId: '105',
       },
     });
 

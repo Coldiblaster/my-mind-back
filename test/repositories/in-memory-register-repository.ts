@@ -1,9 +1,9 @@
 import { DomainEvents } from '@/core/events/domain-events';
 import { Address } from '@/domain/platform/enterprise/entities/address';
 import { Company } from '@/domain/platform/enterprise/entities/company';
-import { ProfessionalServices } from '@/domain/platform/enterprise/entities/professional-services';
 import { OpeningHours } from '@/domain/platform/enterprise/entities/opening-hours';
 import { Professional } from '@/domain/platform/enterprise/entities/professional';
+import { ProfessionalServices } from '@/domain/platform/enterprise/entities/professional-services';
 import { Service } from '@/domain/platform/enterprise/entities/service';
 import { RegisterRepository } from '@/domain/register/application/repositories/register-repository';
 

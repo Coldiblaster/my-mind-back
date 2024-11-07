@@ -15,7 +15,7 @@ export function makeProfessional(
 ) {
   const professional = Professional.create(
     {
-      clerkId: faker.string.uuid(),
+      providerId: faker.string.uuid(),
       companyId: new UniqueEntityID(),
       email: faker.internet.email(),
       name: faker.person.fullName(),
