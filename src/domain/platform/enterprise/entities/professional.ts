@@ -5,7 +5,7 @@ import { UniqueEntityID } from '@/core/entities/unique-entity-id';
 import { Optional } from '@/core/types/optional';
 
 export interface ProfessionalProps {
-  clerkId: string;
+  providerId: string;
   email: string;
   companyId: UniqueEntityID;
   role: $Enums.ProfessionalRole;
@@ -24,8 +24,8 @@ export class Professional extends Entity<ProfessionalProps> {
     return this.props.email;
   }
 
-  get clerkId() {
-    return this.props.clerkId;
+  get providerId() {
+    return this.props.providerId;
   }
 
   get document() {

@@ -37,7 +37,7 @@ export const createCompanySchema = z.object({
   services: z.array(serviceSchema).optional(),
   operatingHours: operatingHoursSchema,
   email: z.string().email('O e-mail deve ser um endereço válido'),
-  clerkId: z.string(),
+  providerId: z.string(),
 });
 
 export type CreateCompanySchema = z.infer<typeof createCompanySchema>;

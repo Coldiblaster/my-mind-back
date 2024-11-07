@@ -49,6 +49,20 @@ export class PrismaProfessionalRepository implements ProfessionalRepository {
     return PrismaProfessionalMapper.toDomain(professional);
   }
 
+  async findByProviderID(providerId: string): Promise<Professional | null> {
+    const professional = await this.prisma.professional.findUnique({
+      where: {
+        providerId,
+      },
+    });
+
+    if (!professional) {
+      return null;
+    }
+
+    return PrismaProfessionalMapper.toDomain(professional);
+  }
+
   async create(professional: Professional): Promise<void> {
     const data = PrismaProfessionalMapper.toPrisma(professional);
 

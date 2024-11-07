@@ -28,7 +28,7 @@ export class RegisterController {
   async handle(@Body() body: CreateCompanySchema) {
     const {
       address,
-      clerkId,
+      providerId,
       email,
       operatingHours,
       businessTypeId,
@@ -39,7 +39,7 @@ export class RegisterController {
     const result = await this.registerCompany.execute({
       email,
       address,
-      clerkId,
+      providerId,
       operatingHours,
       businessTypeId,
       customSegment,

@@ -34,7 +34,7 @@ export class RegisterCompanyUseCase {
     services = [],
     operatingHours,
     email,
-    clerkId,
+    providerId,
   }: CreateCompanySchema): Promise<RegisterCompanyUseCaseResponse> {
     const professionalWithSameEmail =
       await this.professionalRepository.findByEmail(email);
@@ -53,7 +53,7 @@ export class RegisterCompanyUseCase {
 
     const newProfessional = Professional.create({
       email,
-      clerkId,
+      providerId,
       companyId: newCompany.id,
       role: 'EMPLOYEE',
     });

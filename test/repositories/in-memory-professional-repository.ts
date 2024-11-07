@@ -15,6 +15,18 @@ export class InMemoryProfessionalRepository implements ProfessionalRepository {
     return professional;
   }
 
+  async findByProviderID(providerId: string): Promise<Professional | null> {
+    const professional = this.items.find(
+      item => item.providerId.toString() === providerId,
+    );
+
+    if (!professional) {
+      return null;
+    }
+
+    return professional;
+  }
+
   async save(professional: Professional) {
     const itemIndex = this.items.findIndex(item => item.id === professional.id);
 
