@@ -1,11 +1,4 @@
-import {
-  BadRequestException,
-  Body,
-  ConflictException,
-  Controller,
-  HttpCode,
-  Post,
-} from '@nestjs/common';
+import { BadRequestException, Body, Controller, Post } from '@nestjs/common';
 
 import { CreateServiceUseCase } from '@/domain/platform/application/use-cases/service/create-service';
 import {
@@ -31,7 +24,7 @@ export class CreateServiceController {
 
     const result = await this.createServiceCompany.execute({
       description,
-      professionalId: user.professionalId,
+      providerId: user.providerId,
       time,
       value,
     });

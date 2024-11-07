@@ -1,5 +1,3 @@
-import { makeAddress } from 'test/factories/make-address';
-import { makeCompany } from 'test/factories/make-company';
 import { makeProfessional } from 'test/factories/make-professional';
 import { InMemoryProfessionalRepository } from 'test/repositories/in-memory-professional-repository';
 import { InMemoryProfessionalServicesRepository } from 'test/repositories/in-memory-professional-services-repository';

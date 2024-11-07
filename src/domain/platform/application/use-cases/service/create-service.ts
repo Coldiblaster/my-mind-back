@@ -1,10 +1,11 @@
 import { Injectable } from '@nestjs/common';
 
-import { Either, right } from '@/core/either';
-import { UniqueEntityID } from '@/core/entities/unique-entity-id';
+import { Either, left, right } from '@/core/either';
 import { ProfessionalServices } from '@/domain/platform/enterprise/entities/professional-services';
 import { Service } from '@/domain/platform/enterprise/entities/service';
 
+import { ProfessionalDoesNotExistError } from '../../errors/professional-does-not-exist-error';
+import { ProfessionalRepository } from '../../repositories/professional-repository';
 import { ProfessionalServicesRepository } from '../../repositories/professional-services-repository';
 import { ServiceRepository } from '../../repositories/service-repository';
 
@@ -12,11 +13,11 @@ interface CreateServiceUseCaseRequest {
   description: string;
   value: number;
   time: string;
-  professionalId: string;
+  providerId: string;
 }
 
 type CreateServiceUseCaseResponse = Either<
-  null,
+  ProfessionalDoesNotExistError,
   {
     service: Service;
   }
@@ -25,16 +26,24 @@ type CreateServiceUseCaseResponse = Either<
 @Injectable()
 export class CreateServiceUseCase {
   constructor(
+    private professionalRepository: ProfessionalRepository,
     private serviceRepository: ServiceRepository,
-    private ProfessionalServicesRepository: ProfessionalServicesRepository,
+    private professionalServicesRepository: ProfessionalServicesRepository,
   ) { }
 
   async execute({
     description,
     time,
     value,
-    professionalId,
+    providerId,
   }: CreateServiceUseCaseRequest): Promise<CreateServiceUseCaseResponse> {
+    const professional =
+      await this.professionalRepository.findByProviderID(providerId);
+
+    if (!professional) {
+      return left(new ProfessionalDoesNotExistError(providerId));
+    }
+
     const newService = Service.create({
       description,
       time,
@@ -45,10 +54,10 @@ export class CreateServiceUseCase {
 
     const newProfessionalServices = ProfessionalServices.create({
       serviceId: newService.id,
-      professionalId: new UniqueEntityID(professionalId),
+      professionalId: professional.id,
     });
 
-    await this.ProfessionalServicesRepository.create(newProfessionalServices);
+    await this.professionalServicesRepository.create(newProfessionalServices);
 
     return right({
       service: newService,
