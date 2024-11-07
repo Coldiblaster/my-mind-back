@@ -40,7 +40,7 @@ model ProfessionalService {
   professionalId String?   @map("professional_id")
 
   service      Service       @relation(fields: [serviceId], references: [id], onDelete: Cascade)
-  professional Professional? @relation(fields: [professionalId], references: [id])
+  professional Professional? @relation(fields: [professionalId], references: [id], onDelete: Cascade)
 
   @@map("professional_services")
 }
