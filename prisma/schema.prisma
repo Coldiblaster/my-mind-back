@@ -49,7 +49,7 @@ model Service {
   id                   String                @id @default(uuid())
   description          String
   value                Float
-  time                 String
+  time                 Float
   createdAt            DateTime              @default(now()) @map("created_at")
   updatedAt            DateTime?             @updatedAt @map("updated_at")
   professionalServices ProfessionalService[]
