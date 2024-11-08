@@ -22,7 +22,7 @@ CREATE TABLE "professional_services" (
     "service_id" TEXT NOT NULL,
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updated_at" TIMESTAMP(3),
-    "professional_id" TEXT,
+    "professional_id" TEXT NOT NULL,
 
     CONSTRAINT "professional_services_pkey" PRIMARY KEY ("id")
 );
@@ -32,7 +32,7 @@ CREATE TABLE "services" (
     "id" TEXT NOT NULL,
     "description" TEXT NOT NULL,
     "value" DOUBLE PRECISION NOT NULL,
-    "time" TEXT NOT NULL,
+    "time" DOUBLE PRECISION NOT NULL,
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updated_at" TIMESTAMP(3),
 
