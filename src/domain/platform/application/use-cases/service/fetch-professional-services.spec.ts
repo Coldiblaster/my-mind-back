@@ -5,8 +5,6 @@ import { InMemoryProfessionalRepository } from 'test/repositories/in-memory-prof
 import { InMemoryProfessionalServicesRepository } from 'test/repositories/in-memory-professional-services-repository';
 import { InMemoryServiceRepository } from 'test/repositories/in-memory-service-repository';
 
-import { UniqueEntityID } from '@/core/entities/unique-entity-id';
-
 import { FetchProfessionalServicesUseCase } from './fetch-professional-services';
 
 let inMemoryProfessionalServicesRepository: InMemoryProfessionalServicesRepository;
