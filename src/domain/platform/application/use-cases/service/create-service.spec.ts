@@ -36,7 +36,7 @@ describe('Create service', () => {
     const result = await sut.execute({
       providerId: '1',
       description: 'Cabelo',
-      time: '30:00',
+      time: 60,
       value: 50,
     });
 

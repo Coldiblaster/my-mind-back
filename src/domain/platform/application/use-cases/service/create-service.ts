@@ -12,7 +12,7 @@ import { ServiceRepository } from '../../repositories/service-repository';
 interface CreateServiceUseCaseRequest {
   description: string;
   value: number;
-  time: string;
+  time: number;
   providerId: string;
 }
 
@@ -29,7 +29,7 @@ export class CreateServiceUseCase {
     private professionalRepository: ProfessionalRepository,
     private serviceRepository: ServiceRepository,
     private professionalServicesRepository: ProfessionalServicesRepository,
-  ) {}
+  ) { }
 
   async execute({
     description,

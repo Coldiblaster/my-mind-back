@@ -15,7 +15,7 @@ const addressSchema = z.object({
 const serviceSchema = z.object({
   description: z.string(),
   value: z.number(),
-  time: z.string(),
+  time: z.number(),
 });
 
 // Schema de validação para OperatingHoursProps
@@ -43,4 +43,4 @@ export const createCompanySchema = z.object({
 
 export type CreateCompanySchema = z.infer<typeof createCompanySchema>;
 
-export class CreateCompanyDTO extends createZodDto(createCompanySchema) {}
+export class CreateCompanyDTO extends createZodDto(createCompanySchema) { }

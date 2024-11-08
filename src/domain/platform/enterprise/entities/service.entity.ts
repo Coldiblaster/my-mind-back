@@ -5,7 +5,7 @@ import { Optional } from '@/core/types/optional';
 export interface ServiceProps {
   description: string;
   value: number;
-  time: string;
+  time: number;
   createdAt: Date;
   updatedAt?: Date | null;
 }

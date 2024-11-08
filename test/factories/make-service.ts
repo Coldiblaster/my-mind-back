@@ -15,7 +15,7 @@ export function makeService(
 ) {
   const service = Service.create(
     {
-      time: `${faker.number.int({ min: 0, max: 2 }).toString()} : ${faker.number.int({ min: 10, max: 50 }).toString()}`,
+      time: faker.number.int({ min: 10, max: 50 }),
       description: faker.lorem.sentence(),
       value: faker.number.float({ min: 1.0 }),
       ...override,
@@ -28,7 +28,7 @@ export function makeService(
 
 @Injectable()
 export class ServiceFactory {
-  constructor(private prisma: PrismaService) {}
+  constructor(private prisma: PrismaService) { }
 
   async makePrismaService(data: Partial<ServiceProps> = {}): Promise<Service> {
     const service = makeService(data);

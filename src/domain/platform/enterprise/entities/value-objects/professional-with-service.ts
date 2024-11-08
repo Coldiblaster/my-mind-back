@@ -5,7 +5,7 @@ export interface ProfessionalWithServiceProps {
   serviceId: UniqueEntityID;
   professionalId: UniqueEntityID;
   description: string;
-  time: string;
+  time: number;
   value: number;
   createdAt: Date;
   updatedAt?: Date | null;
