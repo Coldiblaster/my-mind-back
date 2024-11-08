@@ -5,7 +5,7 @@ import { Encrypter } from '@/domain/platform/application/cryptography/encrypter'
 
 @Injectable()
 export class JwtEncrypter implements Encrypter {
-  constructor(private jwtService: JwtService) { }
+  constructor(private jwtService: JwtService) {}
 
   encrypt(payload: Record<string, unknown>): Promise<string> {
     return this.jwtService.signAsync(payload);

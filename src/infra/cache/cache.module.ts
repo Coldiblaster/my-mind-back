@@ -16,4 +16,4 @@ import { RedisCacheRepository } from './redis/redis-cache-repository';
   ],
   exports: [CacheRepository],
 })
-export class CacheModule { }
+export class CacheModule {}

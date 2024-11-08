@@ -20,4 +20,4 @@ import { JwtEncrypter } from './jwt-encrypter';
   ],
   exports: [Encrypter],
 })
-export class CryptographyModule { }
+export class CryptographyModule {}

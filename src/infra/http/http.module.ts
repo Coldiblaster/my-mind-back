@@ -24,4 +24,4 @@ import { FetchProfessionalServicesController } from './controller/service/fetch-
     FetchProfessionalServicesUseCase,
   ],
 })
-export class HttpModule { }
+export class HttpModule {}

@@ -55,4 +55,4 @@ import { PrismaServiceRepository } from './prisma/repositories/prisma-service-re
     ServiceRepository,
   ],
 })
-export class DatabaseModule { }
+export class DatabaseModule {}
