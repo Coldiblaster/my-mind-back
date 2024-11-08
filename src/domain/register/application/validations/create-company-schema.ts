@@ -1,3 +1,4 @@
+import { createZodDto } from 'nestjs-zod';
 import { z } from 'zod';
 
 const addressSchema = z.object({
@@ -41,3 +42,5 @@ export const createCompanySchema = z.object({
 });
 
 export type CreateCompanySchema = z.infer<typeof createCompanySchema>;
+
+export class CreateCompanyDTO extends createZodDto(createCompanySchema) {}
