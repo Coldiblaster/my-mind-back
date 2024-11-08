@@ -1,14 +1,14 @@
 import { Injectable } from '@nestjs/common';
 
 import { AddressRepository } from '@/domain/platform/application/repositories/address-repository';
-import { Address } from '@/domain/platform/enterprise/entities/address';
+import { Address } from '@/domain/platform/enterprise/entities/address.entity';
 
 import { PrismaAddressMapper } from '../mappers/prisma-address-mapper';
 import { PrismaService } from '../prisma.service';
 
 @Injectable()
 export class PrismaAddressRepository implements AddressRepository {
-  constructor(private prisma: PrismaService) { }
+  constructor(private prisma: PrismaService) {}
 
   async create(address: Address): Promise<void> {
     const data = PrismaAddressMapper.toPrisma(address);

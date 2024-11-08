@@ -1,4 +1,4 @@
-import { Professional } from '../../enterprise/entities/professional';
+import { Professional } from '../../enterprise/entities/professional.entity';
 
 export abstract class ProfessionalRepository {
   abstract findByEmail(email: string): Promise<Professional | null>;

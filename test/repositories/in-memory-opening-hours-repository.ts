@@ -1,6 +1,6 @@
 import { DomainEvents } from '@/core/events/domain-events';
 import { OpeningHoursRepository } from '@/domain/platform/application/repositories/opening-hours-repository';
-import { OpeningHours } from '@/domain/platform/enterprise/entities/opening-hours';
+import { OpeningHours } from '@/domain/platform/enterprise/entities/opening-hours.entity';
 
 export class InMemoryOpeningHoursRepository implements OpeningHoursRepository {
   public items: OpeningHours[] = [];

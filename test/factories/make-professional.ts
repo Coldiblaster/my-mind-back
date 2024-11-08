@@ -5,7 +5,7 @@ import { UniqueEntityID } from '@/core/entities/unique-entity-id';
 import {
   Professional,
   ProfessionalProps,
-} from '@/domain/platform/enterprise/entities/professional';
+} from '@/domain/platform/enterprise/entities/professional.entity';
 import { PrismaProfessionalMapper } from '@/infra/database/prisma/mappers/prisma-professional-mapper';
 import { PrismaService } from '@/infra/database/prisma/prisma.service';
 
@@ -30,7 +30,7 @@ export function makeProfessional(
 
 @Injectable()
 export class ProfessionalFactory {
-  constructor(private prisma: PrismaService) { }
+  constructor(private prisma: PrismaService) {}
 
   async makePrismaProfessional(
     data: Partial<ProfessionalProps> = {},

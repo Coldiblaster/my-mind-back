@@ -2,12 +2,12 @@ import { Injectable } from '@nestjs/common';
 
 import { Either, left, right } from '@/core/either';
 import { ProfessionalRepository } from '@/domain/platform/application/repositories/professional-repository';
-import { Address } from '@/domain/platform/enterprise/entities/address';
-import { Company } from '@/domain/platform/enterprise/entities/company';
-import { OpeningHours } from '@/domain/platform/enterprise/entities/opening-hours';
-import { Professional } from '@/domain/platform/enterprise/entities/professional';
-import { ProfessionalServices } from '@/domain/platform/enterprise/entities/professional-services';
-import { Service } from '@/domain/platform/enterprise/entities/service';
+import { Address } from '@/domain/platform/enterprise/entities/address.entity';
+import { Company } from '@/domain/platform/enterprise/entities/company.entity';
+import { OpeningHours } from '@/domain/platform/enterprise/entities/opening-hours.entity';
+import { Professional } from '@/domain/platform/enterprise/entities/professional.entity';
+import { ProfessionalServices } from '@/domain/platform/enterprise/entities/professional-services.entity';
+import { Service } from '@/domain/platform/enterprise/entities/service.entity';
 
 import { RegisterRepository } from '../repositories/register-repository';
 import { CreateCompanySchema } from '../validations/create-company-schema';
@@ -25,7 +25,7 @@ export class RegisterCompanyUseCase {
   constructor(
     private registerRepository: RegisterRepository,
     private professionalRepository: ProfessionalRepository,
-  ) { }
+  ) {}
 
   async execute({
     businessTypeId,

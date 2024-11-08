@@ -1,7 +1,7 @@
 import { DomainEvents } from '@/core/events/domain-events';
 import { PaginationParams } from '@/core/repositories/pagination-params';
 import { ServiceRepository } from '@/domain/platform/application/repositories/service-repository';
-import { Service } from '@/domain/platform/enterprise/entities/service';
+import { Service } from '@/domain/platform/enterprise/entities/service.entity';
 import { ProfessionalWithService } from '@/domain/platform/enterprise/entities/value-objects/professional-with-service';
 
 import { InMemoryProfessionalServicesRepository } from './in-memory-professional-services-repository';
@@ -11,7 +11,7 @@ export class InMemoryServiceRepository implements ServiceRepository {
 
   constructor(
     private professionalServicesRepository: InMemoryProfessionalServicesRepository,
-  ) { }
+  ) {}
 
   async findByID(id: string): Promise<Service | null> {
     const service = this.items.find(item => item.id.toString() === id);

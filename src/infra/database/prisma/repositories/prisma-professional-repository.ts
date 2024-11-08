@@ -1,14 +1,14 @@
 import { Injectable } from '@nestjs/common';
 
 import { ProfessionalRepository } from '@/domain/platform/application/repositories/professional-repository';
-import { Professional } from '@/domain/platform/enterprise/entities/professional';
+import { Professional } from '@/domain/platform/enterprise/entities/professional.entity';
 
 import { PrismaProfessionalMapper } from '../mappers/prisma-professional-mapper';
 import { PrismaService } from '../prisma.service';
 
 @Injectable()
 export class PrismaProfessionalRepository implements ProfessionalRepository {
-  constructor(private prisma: PrismaService) { }
+  constructor(private prisma: PrismaService) {}
 
   async save(professional: Professional): Promise<void> {
     const data = PrismaProfessionalMapper.toPrisma(professional);

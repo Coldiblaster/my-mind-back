@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 
 import { Either, left, right } from '@/core/either';
-import { ProfessionalServices } from '@/domain/platform/enterprise/entities/professional-services';
-import { Service } from '@/domain/platform/enterprise/entities/service';
+import { ProfessionalServices } from '@/domain/platform/enterprise/entities/professional-services.entity';
+import { Service } from '@/domain/platform/enterprise/entities/service.entity';
 
 import { ProfessionalDoesNotExistError } from '../../errors/professional-does-not-exist-error';
 import { ProfessionalRepository } from '../../repositories/professional-repository';
@@ -29,7 +29,7 @@ export class CreateServiceUseCase {
     private professionalRepository: ProfessionalRepository,
     private serviceRepository: ServiceRepository,
     private professionalServicesRepository: ProfessionalServicesRepository,
-  ) { }
+  ) {}
 
   async execute({
     description,

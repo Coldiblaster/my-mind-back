@@ -5,7 +5,7 @@ import { UniqueEntityID } from '@/core/entities/unique-entity-id';
 import {
   Company,
   CompanyProps,
-} from '@/domain/platform/enterprise/entities/company';
+} from '@/domain/platform/enterprise/entities/company.entity';
 import { PrismaCompanyMapper } from '@/infra/database/prisma/mappers/prisma-company-mapper';
 import { PrismaService } from '@/infra/database/prisma/prisma.service';
 
@@ -28,7 +28,7 @@ export function makeCompany(
 
 @Injectable()
 export class CompanyFactory {
-  constructor(private prisma: PrismaService) { }
+  constructor(private prisma: PrismaService) {}
 
   async makePrismaCompany(data: Partial<CompanyProps> = {}): Promise<Company> {
     const company = makeCompany(data);

@@ -1,6 +1,6 @@
 import { PaginationParams } from '@/core/repositories/pagination-params';
 
-import { Service } from '../../enterprise/entities/service';
+import { Service } from '../../enterprise/entities/service.entity';
 import { ProfessionalWithService } from '../../enterprise/entities/value-objects/professional-with-service';
 
 export abstract class ServiceRepository {

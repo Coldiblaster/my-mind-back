@@ -1,4 +1,4 @@
-import { Company } from '../../enterprise/entities/company';
+import { Company } from '../../enterprise/entities/company.entity';
 
 export abstract class CompanyRepository {
   abstract findByID(id: string): Promise<Company | null>;

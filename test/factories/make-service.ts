@@ -5,7 +5,7 @@ import { UniqueEntityID } from '@/core/entities/unique-entity-id';
 import {
   Service,
   ServiceProps,
-} from '@/domain/platform/enterprise/entities/service';
+} from '@/domain/platform/enterprise/entities/service.entity';
 import { PrismaServiceMapper } from '@/infra/database/prisma/mappers/prisma-service-mapper';
 import { PrismaService } from '@/infra/database/prisma/prisma.service';
 
@@ -28,7 +28,7 @@ export function makeService(
 
 @Injectable()
 export class ServiceFactory {
-  constructor(private prisma: PrismaService) { }
+  constructor(private prisma: PrismaService) {}
 
   async makePrismaService(data: Partial<ServiceProps> = {}): Promise<Service> {
     const service = makeService(data);

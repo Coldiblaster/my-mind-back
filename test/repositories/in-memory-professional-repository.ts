@@ -1,6 +1,6 @@
 import { DomainEvents } from '@/core/events/domain-events';
 import { ProfessionalRepository } from '@/domain/platform/application/repositories/professional-repository';
-import { Professional } from '@/domain/platform/enterprise/entities/professional';
+import { Professional } from '@/domain/platform/enterprise/entities/professional.entity';
 
 export class InMemoryProfessionalRepository implements ProfessionalRepository {
   public items: Professional[] = [];

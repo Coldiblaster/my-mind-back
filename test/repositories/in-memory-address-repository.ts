@@ -1,6 +1,6 @@
 import { DomainEvents } from '@/core/events/domain-events';
 import { AddressRepository } from '@/domain/platform/application/repositories/address-repository';
-import { Address } from '@/domain/platform/enterprise/entities/address';
+import { Address } from '@/domain/platform/enterprise/entities/address.entity';
 
 export class InMemoryAddressRepository implements AddressRepository {
   public items: Address[] = [];

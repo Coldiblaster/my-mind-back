@@ -1,15 +1,16 @@
 import { Injectable } from '@nestjs/common';
 
 import { ProfessionalServicesRepository } from '@/domain/platform/application/repositories/professional-services-repository';
-import { ProfessionalServices } from '@/domain/platform/enterprise/entities/professional-services';
+import { ProfessionalServices } from '@/domain/platform/enterprise/entities/professional-services.entity';
 
 import { PrismaProfessionalServicesMapper } from '../mappers/prisma-professional-services-mapper';
 import { PrismaService } from '../prisma.service';
 
 @Injectable()
 export class PrismaProfessionalServicesRepository
-  implements ProfessionalServicesRepository {
-  constructor(private prisma: PrismaService) { }
+  implements ProfessionalServicesRepository
+{
+  constructor(private prisma: PrismaService) {}
 
   async findByID(id: string): Promise<ProfessionalServices | null> {
     const ProfessionalServices =

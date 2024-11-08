@@ -1,4 +1,4 @@
-import { ProfessionalServices } from '../../enterprise/entities/professional-services';
+import { ProfessionalServices } from '../../enterprise/entities/professional-services.entity';
 
 export abstract class ProfessionalServicesRepository {
   abstract findByID(id: string): Promise<ProfessionalServices | null>;

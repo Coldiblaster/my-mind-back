@@ -1,11 +1,11 @@
 import { Injectable } from '@nestjs/common';
 
-import { Address } from '@/domain/platform/enterprise/entities/address';
-import { Company } from '@/domain/platform/enterprise/entities/company';
-import { OpeningHours } from '@/domain/platform/enterprise/entities/opening-hours';
-import { Professional } from '@/domain/platform/enterprise/entities/professional';
-import { ProfessionalServices } from '@/domain/platform/enterprise/entities/professional-services';
-import { Service } from '@/domain/platform/enterprise/entities/service';
+import { Address } from '@/domain/platform/enterprise/entities/address.entity';
+import { Company } from '@/domain/platform/enterprise/entities/company.entity';
+import { OpeningHours } from '@/domain/platform/enterprise/entities/opening-hours.entity';
+import { Professional } from '@/domain/platform/enterprise/entities/professional.entity';
+import { ProfessionalServices } from '@/domain/platform/enterprise/entities/professional-services.entity';
+import { Service } from '@/domain/platform/enterprise/entities/service.entity';
 import { RegisterRepository } from '@/domain/register/application/repositories/register-repository';
 
 import { PrismaAddressMapper } from '../mappers/prisma-address-mapper';
@@ -18,7 +18,7 @@ import { PrismaService } from '../prisma.service';
 
 @Injectable()
 export class PrismaRegisterRepository implements RegisterRepository {
-  constructor(private prisma: PrismaService) { }
+  constructor(private prisma: PrismaService) {}
 
   async registerCompanyWithDetails(data: {
     professional: Professional;

@@ -1,7 +1,7 @@
 import { Prisma, Service as PrismaServices } from '@prisma/client';
 
 import { UniqueEntityID } from '@/core/entities/unique-entity-id';
-import { Service } from '@/domain/platform/enterprise/entities/service';
+import { Service } from '@/domain/platform/enterprise/entities/service.entity';
 
 export class PrismaServiceMapper {
   static toDomain(raw: PrismaServices): Service {

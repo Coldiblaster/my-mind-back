@@ -1,4 +1,4 @@
-import { Address } from '../../enterprise/entities/address';
+import { Address } from '../../enterprise/entities/address.entity';
 
 export abstract class AddressRepository {
   abstract findByID(id: string): Promise<Address | null>;

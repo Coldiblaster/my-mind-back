@@ -6,7 +6,7 @@ import { UniqueEntityID } from '@/core/entities/unique-entity-id';
 import {
   OpeningHours,
   OpeningHoursProps,
-} from '@/domain/platform/enterprise/entities/opening-hours';
+} from '@/domain/platform/enterprise/entities/opening-hours.entity';
 import { PrismaOpeningHoursMapper } from '@/infra/database/prisma/mappers/prisma-opening-hours-mapper';
 import { PrismaService } from '@/infra/database/prisma/prisma.service';
 
@@ -30,7 +30,7 @@ export function makeOpeningHours(
 
 @Injectable()
 export class OpeningHoursFactory {
-  constructor(private prisma: PrismaService) { }
+  constructor(private prisma: PrismaService) {}
 
   async makePrismaOpeningHours(
     data: Partial<OpeningHoursProps> = {},

@@ -1,7 +1,7 @@
 import { OpeningHours as PrismaOpeningHours, Prisma } from '@prisma/client';
 
 import { UniqueEntityID } from '@/core/entities/unique-entity-id';
-import { OpeningHours } from '@/domain/platform/enterprise/entities/opening-hours';
+import { OpeningHours } from '@/domain/platform/enterprise/entities/opening-hours.entity';
 
 export class PrismaOpeningHoursMapper {
   static toDomain(raw: PrismaOpeningHours): OpeningHours {

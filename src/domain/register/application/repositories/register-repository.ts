@@ -1,9 +1,9 @@
-import { Address } from '@/domain/platform/enterprise/entities/address';
-import { Company } from '@/domain/platform/enterprise/entities/company';
-import { OpeningHours } from '@/domain/platform/enterprise/entities/opening-hours';
-import { Professional } from '@/domain/platform/enterprise/entities/professional';
-import { ProfessionalServices } from '@/domain/platform/enterprise/entities/professional-services';
-import { Service } from '@/domain/platform/enterprise/entities/service';
+import { Address } from '@/domain/platform/enterprise/entities/address.entity';
+import { Company } from '@/domain/platform/enterprise/entities/company.entity';
+import { OpeningHours } from '@/domain/platform/enterprise/entities/opening-hours.entity';
+import { Professional } from '@/domain/platform/enterprise/entities/professional.entity';
+import { ProfessionalServices } from '@/domain/platform/enterprise/entities/professional-services.entity';
+import { Service } from '@/domain/platform/enterprise/entities/service.entity';
 
 export abstract class RegisterRepository {
   abstract registerCompanyWithDetails(data: {

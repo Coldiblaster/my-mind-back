@@ -4,7 +4,7 @@ import {
 } from '@prisma/client';
 
 import { UniqueEntityID } from '@/core/entities/unique-entity-id';
-import { ProfessionalServices } from '@/domain/platform/enterprise/entities/professional-services';
+import { ProfessionalServices } from '@/domain/platform/enterprise/entities/professional-services.entity';
 
 export class PrismaProfessionalServicesMapper {
   static toDomain(raw: PrismaProfessionalServices): ProfessionalServices {

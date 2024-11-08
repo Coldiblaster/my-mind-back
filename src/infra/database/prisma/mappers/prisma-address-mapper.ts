@@ -1,7 +1,7 @@
 import { Address as PrismaAddress, Prisma } from '@prisma/client';
 
 import { UniqueEntityID } from '@/core/entities/unique-entity-id';
-import { Address } from '@/domain/platform/enterprise/entities/address';
+import { Address } from '@/domain/platform/enterprise/entities/address.entity';
 
 export class PrismaAddressMapper {
   static toDomain(raw: PrismaAddress): Address {

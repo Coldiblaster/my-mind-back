@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 
 import { PaginationParams } from '@/core/repositories/pagination-params';
 import { ServiceRepository } from '@/domain/platform/application/repositories/service-repository';
-import { Service } from '@/domain/platform/enterprise/entities/service';
+import { Service } from '@/domain/platform/enterprise/entities/service.entity';
 import { ProfessionalWithService } from '@/domain/platform/enterprise/entities/value-objects/professional-with-service';
 
 import { PrismaProfessionalWithServiceMapper } from '../mappers/prisma-professional-with-service-mapper';
@@ -11,7 +11,7 @@ import { PrismaService } from '../prisma.service';
 
 @Injectable()
 export class PrismaServiceRepository implements ServiceRepository {
-  constructor(private prisma: PrismaService) { }
+  constructor(private prisma: PrismaService) {}
 
   async create(service: Service): Promise<void> {
     const data = PrismaServiceMapper.toPrisma(service);

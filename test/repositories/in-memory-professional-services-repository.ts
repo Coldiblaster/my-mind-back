@@ -1,9 +1,10 @@
 import { DomainEvents } from '@/core/events/domain-events';
 import { ProfessionalServicesRepository } from '@/domain/platform/application/repositories/professional-services-repository';
-import { ProfessionalServices } from '@/domain/platform/enterprise/entities/professional-services';
+import { ProfessionalServices } from '@/domain/platform/enterprise/entities/professional-services.entity';
 
 export class InMemoryProfessionalServicesRepository
-  implements ProfessionalServicesRepository {
+  implements ProfessionalServicesRepository
+{
   public items: ProfessionalServices[] = [];
 
   async findByID(id: string): Promise<ProfessionalServices | null> {
