@@ -5,10 +5,12 @@ import {
   Post,
   UnauthorizedException,
 } from '@nestjs/common';
+import { ApiBearerAuth, ApiBody, ApiResponse } from '@nestjs/swagger';
 
 import { ProfessionalDoesNotExistError } from '@/domain/platform/application/errors/professional-does-not-exist-error';
 import { CreateServiceUseCase } from '@/domain/platform/application/use-cases/service/create-service';
 import {
+  CreateServiceDTO,
   CreateServiceSchema,
   createServiceSchema,
 } from '@/domain/platform/validations/create-service-schema';
@@ -20,9 +22,19 @@ const bodyValidationPipe = new ZodValidationPipe(createServiceSchema);
 
 @Controller('/service')
 export class CreateServiceController {
-  constructor(private createServiceCompany: CreateServiceUseCase) { }
+  constructor(private createServiceCompany: CreateServiceUseCase) {}
 
   @Post()
+  @ApiBody({
+    type: CreateServiceDTO, // Passando o schema OpenAPI do Zod para o Swagger
+  })
+  @ApiBearerAuth()
+  @ApiResponse({
+    status: 201,
+    description: 'The record has been successfully created.',
+  })
+  @ApiResponse({ status: 400, description: 'Bad Request.' })
+  @ApiResponse({ status: 401, description: 'Unauthorized.' })
   async handle(
     @Body(bodyValidationPipe) body: CreateServiceSchema,
     @CurrentUser() user: UserPayload,

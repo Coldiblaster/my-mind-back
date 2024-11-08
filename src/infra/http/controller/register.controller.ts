@@ -7,10 +7,12 @@ import {
   Post,
   UsePipes,
 } from '@nestjs/common';
+import { ApiBody } from '@nestjs/swagger';
 
 import { ProfessionalAlreadyExistsError } from '@/domain/register/application/use-cases/errors/professional-already-exists-error';
 import { RegisterCompanyUseCase } from '@/domain/register/application/use-cases/register-company';
 import {
+  CreateCompanyDTO,
   CreateCompanySchema,
   createCompanySchema,
 } from '@/domain/register/application/validations/create-company-schema';
@@ -20,11 +22,14 @@ import { ZodValidationPipe } from '@/infra/http/pipes/zod-validation-pipe';
 @Controller('/register')
 @Public()
 export class RegisterController {
-  constructor(private registerCompany: RegisterCompanyUseCase) { }
+  constructor(private registerCompany: RegisterCompanyUseCase) {}
 
   @Post()
   @HttpCode(201)
   @UsePipes(new ZodValidationPipe(createCompanySchema))
+  @ApiBody({
+    type: CreateCompanyDTO,
+  })
   async handle(@Body() body: CreateCompanySchema) {
     const {
       address,
