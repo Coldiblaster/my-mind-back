@@ -16,7 +16,10 @@ describe('Create service', () => {
     inMemoryProfessionalRepository = new InMemoryProfessionalRepository();
     inMemoryProfessionalServicesRepository =
       new InMemoryProfessionalServicesRepository();
-    inMemoryServiceRepository = new InMemoryServiceRepository();
+
+    inMemoryServiceRepository = new InMemoryServiceRepository(
+      inMemoryProfessionalServicesRepository,
+    );
 
     sut = new CreateServiceUseCase(
       inMemoryProfessionalRepository,

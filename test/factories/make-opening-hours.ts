@@ -1,5 +1,6 @@
 import { faker } from '@faker-js/faker';
 import { Injectable } from '@nestjs/common';
+import { endTime, startTime } from 'test/utils/time';
 
 import { UniqueEntityID } from '@/core/entities/unique-entity-id';
 import {
@@ -13,20 +14,6 @@ export function makeOpeningHours(
   override: Partial<OpeningHoursProps> = {},
   id?: UniqueEntityID,
 ) {
-  const startHour = faker.number.int({ min: 6, max: 21 });
-  const startMinute = faker.number.int({ min: 0, max: 59 });
-  const startTime = `${startHour}:${startMinute.toString().padStart(2, '0')}`;
-
-  const endHour = faker.number.int({ min: startHour, max: 22 });
-  let endMinute = faker.number.int({ min: 0, max: 59 });
-
-  if (endHour === startHour && endMinute <= startMinute) {
-    endMinute =
-      startMinute + faker.number.int({ min: 1, max: 59 - startMinute });
-  }
-
-  const endTime = `${endHour}:${endMinute.toString().padStart(2, '0')}`;
-
   const openingHours = OpeningHours.create(
     {
       startTime,

@@ -7,7 +7,9 @@ export class InMemoryProfessionalServicesRepository
   public items: ProfessionalServices[] = [];
 
   async findByID(id: string): Promise<ProfessionalServices | null> {
-    const ProfessionalServices = this.items.find(item => item.id.toString() === id);
+    const ProfessionalServices = this.items.find(
+      item => item.id.toString() === id,
+    );
 
     if (!ProfessionalServices) {
       return null;
