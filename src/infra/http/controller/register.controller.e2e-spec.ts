@@ -8,7 +8,7 @@ import { AppModule } from '@/infra/app.module';
 import { DatabaseModule } from '@/infra/database/database.module';
 import { PrismaService } from '@/infra/database/prisma/prisma.service';
 
-describe('Register account (E2E)', () => {
+describe('Register Account (E2E)', () => {
   let app: INestApplication;
 
   let prisma: PrismaService;
@@ -60,12 +60,12 @@ describe('Register account (E2E)', () => {
         services: [
           {
             description: 'Cabelo',
-            time: '00:50',
+            time: 50,
             value: 30,
           },
           {
             description: 'Barba',
-            time: '00:20',
+            time: 20,
             value: 20,
           },
         ],

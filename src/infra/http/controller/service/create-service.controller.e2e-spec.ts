@@ -10,7 +10,7 @@ import { AppModule } from '@/infra/app.module';
 import { DatabaseModule } from '@/infra/database/database.module';
 import { PrismaService } from '@/infra/database/prisma/prisma.service';
 
-describe('Create service (E2E)', () => {
+describe('Create Service (E2E)', () => {
   let app: INestApplication;
 
   let prisma: PrismaService;
@@ -60,7 +60,7 @@ describe('Create service (E2E)', () => {
       .set('Authorization', `Bearer ${accessToken}`)
       .send({
         description: 'Cabelo',
-        time: '00:50',
+        time: 50,
         value: 30,
         providerId: professional.providerId,
       });

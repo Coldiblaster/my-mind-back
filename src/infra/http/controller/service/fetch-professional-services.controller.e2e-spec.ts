@@ -11,7 +11,7 @@ import { ServiceFactory } from 'test/factories/make-service';
 import { AppModule } from '@/infra/app.module';
 import { DatabaseModule } from '@/infra/database/database.module';
 
-describe('Fetch professional services (E2E)', () => {
+describe('Fetch Professional Services (E2E)', () => {
   let app: INestApplication;
 
   let professionalFactory: ProfessionalFactory;
@@ -46,7 +46,7 @@ describe('Fetch professional services (E2E)', () => {
     await app.init();
   });
 
-  test('[POST] /service', async () => {
+  test('[GET] /service', async () => {
     const newAddress = await addressFactory.makePrismaAddress();
     const newCompany = await companyFactory.makePrismaCompany({
       addressId: newAddress.id,
