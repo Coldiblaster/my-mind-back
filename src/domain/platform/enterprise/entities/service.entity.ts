@@ -31,6 +31,25 @@ export class Service extends Entity<ServiceProps> {
     return this.props.updatedAt;
   }
 
+  set time(time: number) {
+    this.props.time = time;
+    this.touch();
+  }
+
+  set value(value: number) {
+    this.props.value = value;
+    this.touch();
+  }
+
+  set description(description: string) {
+    this.props.description = description;
+    this.touch();
+  }
+
+  private touch() {
+    this.props.updatedAt = new Date();
+  }
+
   static create(
     props: Optional<ServiceProps, 'createdAt'>,
     id?: UniqueEntityID,
