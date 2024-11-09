@@ -5,7 +5,8 @@ import {
   Param,
   Put,
 } from '@nestjs/common';
-import { ApiBearerAuth, ApiResponse } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiBody, ApiResponse } from '@nestjs/swagger';
+import { createZodDto } from 'nestjs-zod';
 import { z } from 'zod';
 
 import { EditServiceUseCase } from '@/domain/platform/application/use-cases/service/edit-service';
@@ -23,16 +24,20 @@ const bodyValidationPipe = new ZodValidationPipe(editServiceBodySchema);
 
 type EditServiceBodySchema = z.infer<typeof editServiceBodySchema>;
 
+export class EditServiceBodyDTO extends createZodDto(editServiceBodySchema) { }
+
 @Controller('/service/:id')
 export class EditServiceController {
   constructor(private editService: EditServiceUseCase) { }
 
   @Put()
+  @ApiBody({
+    type: EditServiceBodyDTO, // Passando o schema OpenAPI do Zod para o Swagger
+  })
   @ApiBearerAuth()
   @ApiResponse({
     status: 200,
     description: 'The request was successful.',
-    type: [ServiceDTO],
   })
   @ApiResponse({ status: 400, description: 'Bad Request.' })
   @ApiResponse({ status: 401, description: 'Unauthorized.' })

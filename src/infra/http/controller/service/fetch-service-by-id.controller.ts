@@ -15,7 +15,7 @@ export class FetchServiceByIdController {
   @ApiResponse({
     status: 200,
     description: 'The request was successful.',
-    type: [ServiceDTO],
+    type: ServiceDTO,
   })
   @ApiResponse({ status: 400, description: 'Bad Request.' })
   @ApiResponse({ status: 401, description: 'Unauthorized.' })

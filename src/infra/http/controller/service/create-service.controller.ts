@@ -22,7 +22,7 @@ const bodyValidationPipe = new ZodValidationPipe(createServiceSchema);
 
 @Controller('/service')
 export class CreateServiceController {
-  constructor(private createServiceCompany: CreateServiceUseCase) {}
+  constructor(private createServiceCompany: CreateServiceUseCase) { }
 
   @Post()
   @ApiBody({
