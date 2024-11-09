@@ -2,14 +2,14 @@ import { makeService } from 'test/factories/make-service';
 import { InMemoryProfessionalServicesRepository } from 'test/repositories/in-memory-professional-services-repository';
 import { InMemoryServiceRepository } from 'test/repositories/in-memory-service-repository';
 
-import { FetchServiceByIdUseCase } from './fetch-services-by-id';
+import { FetchServiceByIdUseCase } from './fetch-service-by-id';
 
 let inMemoryProfessionalServicesRepository: InMemoryProfessionalServicesRepository;
 let inMemoryServiceRepository: InMemoryServiceRepository;
 
 let sut: FetchServiceByIdUseCase;
 
-describe('Fetch Services By Id', () => {
+describe('Fetch Service By Id', () => {
   beforeEach(() => {
     inMemoryProfessionalServicesRepository =
       new InMemoryProfessionalServicesRepository();

@@ -1,7 +1,7 @@
 import { BadRequestException, Controller, Get, Param } from '@nestjs/common';
 import { ApiBearerAuth, ApiResponse } from '@nestjs/swagger';
 
-import { FetchServiceByIdUseCase } from '@/domain/platform/application/use-cases/service/fetch-services-by-id';
+import { FetchServiceByIdUseCase } from '@/domain/platform/application/use-cases/service/fetch-service-by-id';
 import { ServiceDTO } from '@/domain/platform/documents/serviceDTO';
 
 import { ServicePresenter } from '../../presenters/service-presenter';
