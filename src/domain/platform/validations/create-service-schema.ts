@@ -3,8 +3,8 @@ import { z } from 'zod';
 
 export const createServiceSchema = z.object({
   description: z.string(),
-  value: z.number(),
-  time: z.number(),
+  value: z.number().min(1),
+  time: z.number().min(1),
 });
 
 export type CreateServiceSchema = z.infer<typeof createServiceSchema>;

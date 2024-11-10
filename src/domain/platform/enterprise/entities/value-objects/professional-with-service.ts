@@ -7,8 +7,10 @@ export interface ProfessionalWithServiceProps {
   description: string;
   time: number;
   value: number;
+  isActive: boolean;
   createdAt: Date;
   updatedAt?: Date | null;
+  deletedAt?: Date | null;
 }
 
 export class ProfessionalWithService extends ValueObject<ProfessionalWithServiceProps> {
@@ -38,6 +40,14 @@ export class ProfessionalWithService extends ValueObject<ProfessionalWithService
 
   get updatedAt() {
     return this.props.updatedAt;
+  }
+
+  get isActive() {
+    return this.props.isActive;
+  }
+
+  get deletedAt() {
+    return this.props.deletedAt;
   }
 
   static create(props: ProfessionalWithServiceProps) {

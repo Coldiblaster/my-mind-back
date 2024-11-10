@@ -11,7 +11,7 @@ export class InMemoryServiceRepository implements ServiceRepository {
 
   constructor(
     private professionalServicesRepository: InMemoryProfessionalServicesRepository,
-  ) {}
+  ) { }
 
   async findByID(id: string): Promise<Service | null> {
     const service = this.items.find(item => item.id.toString() === id);
@@ -65,5 +65,17 @@ export class InMemoryServiceRepository implements ServiceRepository {
     this.items.push(service);
 
     DomainEvents.dispatchEventsForAggregate(service.id);
+  }
+
+  async delete(service: Service): Promise<void> {
+    const itemIndex = this.items.findIndex(item => item.id === service.id);
+
+    if (itemIndex !== -1) {
+      this.items[itemIndex].isActive = false;
+
+      await this.save(this.items[itemIndex]);
+
+      DomainEvents.dispatchEventsForAggregate(service.id);
+    }
   }
 }

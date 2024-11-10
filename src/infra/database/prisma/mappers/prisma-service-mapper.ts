@@ -23,8 +23,10 @@ export class PrismaServiceMapper {
       description: service.description,
       time: service.time,
       value: service.value,
+      isActive: service.isActive,
       createdAt: service.createdAt,
       updatedAt: service.updatedAt,
+      deletedAt: service.deletedAt,
     };
   }
 }

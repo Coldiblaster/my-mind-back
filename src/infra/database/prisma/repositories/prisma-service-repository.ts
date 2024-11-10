@@ -11,7 +11,7 @@ import { PrismaService } from '../prisma.service';
 
 @Injectable()
 export class PrismaServiceRepository implements ServiceRepository {
-  constructor(private prisma: PrismaService) {}
+  constructor(private prisma: PrismaService) { }
 
   async create(service: Service): Promise<void> {
     const data = PrismaServiceMapper.toPrisma(service);
@@ -40,6 +40,9 @@ export class PrismaServiceRepository implements ServiceRepository {
       {
         where: {
           professionalId,
+          service: {
+            isActive: true,
+          },
         },
         include: {
           service: true,
@@ -69,5 +72,16 @@ export class PrismaServiceRepository implements ServiceRepository {
     }
 
     return PrismaServiceMapper.toDomain(service);
+  }
+
+  async delete(service: Service): Promise<void> {
+    const data = PrismaServiceMapper.toPrisma(service);
+
+    await this.prisma.service.update({
+      where: {
+        id: service.id.toString(),
+      },
+      data,
+    });
   }
 }

@@ -6,8 +6,10 @@ export interface ServiceProps {
   description: string;
   value: number;
   time: number;
+  isActive: boolean;
   createdAt: Date;
   updatedAt?: Date | null;
+  deletedAt?: Date | null;
 }
 
 export class Service extends Entity<ServiceProps> {
@@ -21,6 +23,14 @@ export class Service extends Entity<ServiceProps> {
 
   get time() {
     return this.props.time;
+  }
+
+  get isActive() {
+    return this.props.isActive;
+  }
+
+  get deletedAt() {
+    return this.props.deletedAt;
   }
 
   get createdAt() {
@@ -46,17 +56,31 @@ export class Service extends Entity<ServiceProps> {
     this.touch();
   }
 
+  set isActive(isActive: boolean) {
+    this.props.isActive = isActive;
+    this.onDelete(isActive);
+  }
+
   private touch() {
     this.props.updatedAt = new Date();
   }
 
+  private onDelete(isActive: boolean) {
+    if (!isActive) {
+      this.props.deletedAt = new Date();
+    } else this.props.deletedAt = null;
+
+    this.touch();
+  }
+
   static create(
-    props: Optional<ServiceProps, 'createdAt'>,
+    props: Optional<ServiceProps, 'createdAt' | 'isActive'>,
     id?: UniqueEntityID,
   ) {
     const service = new Service(
       {
         ...props,
+        isActive: true,
         createdAt: props.createdAt ?? new Date(),
       },
       id,
