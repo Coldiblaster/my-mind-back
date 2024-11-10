@@ -50,8 +50,10 @@ model Service {
   description          String
   value                Float
   time                 Float
+  isActive             Boolean               @default(true)
   createdAt            DateTime              @default(now()) @map("created_at")
   updatedAt            DateTime?             @updatedAt @map("updated_at")
+  deletedAt            DateTime?             @map("deleted_at")
   professionalServices ProfessionalService[]
 
   @@map("services")
