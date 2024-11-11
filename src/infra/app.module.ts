@@ -6,6 +6,7 @@ import { AuthModule } from '@/infra/auth/auth.module';
 import { envSchema } from './env/env';
 import { EnvModule } from './env/env.module';
 import { HttpModule } from './http/http.module';
+import { IaModule } from './ia/ia.module';
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { HttpModule } from './http/http.module';
     AuthModule,
     HttpModule,
     EnvModule,
+    IaModule,
   ],
 })
-export class AppModule {}
+export class AppModule { }
