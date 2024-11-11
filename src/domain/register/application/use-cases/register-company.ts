@@ -25,7 +25,7 @@ export class RegisterCompanyUseCase {
   constructor(
     private registerRepository: RegisterRepository,
     private professionalRepository: ProfessionalRepository,
-  ) {}
+  ) { }
 
   async execute({
     businessTypeId,
@@ -40,6 +40,13 @@ export class RegisterCompanyUseCase {
       await this.professionalRepository.findByEmail(email);
 
     if (professionalWithSameEmail) {
+      return left(new ProfessionalAlreadyExistsError(email));
+    }
+
+    const professionalWithSameProvider =
+      await this.professionalRepository.findByProviderID(providerId);
+
+    if (professionalWithSameProvider) {
       return left(new ProfessionalAlreadyExistsError(email));
     }
 
