@@ -4,6 +4,7 @@ import { createZodDto } from 'nestjs-zod';
 import { z } from 'zod';
 
 import { CreateServiceSuggestionUseCase } from '@/domain/platform/application/use-cases/service/create-service-suggestion';
+import { ServiceSuggestionDTO } from '@/domain/platform/documents/service-suggestionDTO';
 import { ZodValidationPipe } from '@/infra/http/pipes/zod-validation-pipe';
 
 import { ServiceSuggestionPresenter } from '../../presenters/service-suggestion-presenter';
@@ -29,12 +30,15 @@ export class CreateServiceSuggestionController {
 
   @Post()
   @ApiBody({
+    description:
+      'Dados para criação de uma sugestão de serviço.\n\n**Observação**: Caso seja `Outros Segmentos` com o `id: 21` , envie o valor `0` no campo `businessTypeId`.',
     type: createZodDto(createServiceSuggestionBodySchema),
   })
   @ApiBearerAuth()
   @ApiResponse({
     status: 201,
     description: 'The record has been successfully created.',
+    type: [ServiceSuggestionDTO],
   })
   @ApiResponse({ status: 400, description: 'Bad Request.' })
   @ApiResponse({ status: 401, description: 'Unauthorized.' })

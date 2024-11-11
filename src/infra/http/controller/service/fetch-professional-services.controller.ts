@@ -32,13 +32,14 @@ type PageQueryParamSchema = z.infer<typeof pageQueryParamSchema>;
 export class FetchProfessionalServicesController {
   constructor(
     private fetchProfessionalServices: FetchProfessionalServicesUseCase,
-  ) {}
+  ) { }
 
   @Get()
   @ApiQuery({
     name: 'page',
     required: false, // Garantindo que o parâmetro seja opcional
-    description: 'Paginação. Valor padrão é 1.',
+    description:
+      'Parâmetro para paginação.\n\n**Observação**: Valor padrão é `1`.',
   })
   @ApiBearerAuth()
   @ApiResponse({
