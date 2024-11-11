@@ -6,7 +6,8 @@
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
-    "build": "npm run prisma:migrate && npm run prisma:generate && npm run prisma:seed && nest build",
+    "build": "pnpm run prisma:migrate && pnpm run prisma:generate && nest build",
+    "postinstall": "pnpm run prisma:generate",
     "prisma:migrate": "prisma migrate deploy",
     "prisma:generate": "prisma generate",
     "prisma:seed": "ts-node prisma/seed.ts",
