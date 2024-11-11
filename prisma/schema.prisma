@@ -90,12 +90,28 @@ model Phone {
 }
 
 model BusinessType {
-  id      Int       @id @default(autoincrement())
-  icon    String
-  label   String
-  Company Company[]
+  id                Int                 @id @default(autoincrement())
+  icon              String
+  label             String
+  company           Company[]
+  serviceSuggestion ServiceSuggestion[]
 
   @@map("business_types")
+}
+
+model ServiceSuggestion {
+  id             String    @id @default(uuid())
+  title          String
+  description    String
+  value          Float
+  time           Float
+  businessTypeId Int?      @map("business_type_id")
+  createdAt      DateTime  @default(now()) @map("created_at")
+  updatedAt      DateTime? @updatedAt @map("updated_at")
+
+  bussinessType BusinessType? @relation(fields: [businessTypeId], references: [id])
+
+  @@map("service_suggestions")
 }
 
 model Address {
