@@ -7,7 +7,7 @@ export interface ProfessionalWithServiceProps {
   description: string;
   time: number;
   value: number;
-  isActive: boolean;
+  isActive?: boolean;
   createdAt: Date;
   updatedAt?: Date | null;
   deletedAt?: Date | null;
