@@ -6,7 +6,6 @@ import { AddressFactory } from 'test/factories/make-address';
 import { BusinessTypeFactory } from 'test/factories/make-business-type';
 import { CompanyFactory } from 'test/factories/make-company';
 import { ProfessionalFactory } from 'test/factories/make-professional';
-import { ServiceFactory } from 'test/factories/make-service';
 
 import { AppModule } from '@/infra/app.module';
 import { DatabaseModule } from '@/infra/database/database.module';

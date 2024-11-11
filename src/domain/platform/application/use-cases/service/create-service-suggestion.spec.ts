@@ -1,4 +1,3 @@
-import { makeProfessional } from 'test/factories/make-professional';
 import { makeServiceSuggestion } from 'test/factories/make-service-suggestion';
 import { InMemoryIaRepository } from 'test/repositories/in-memory-ia-repository';
 import { InMemoryServiceSuggestionRepository } from 'test/repositories/in-memory-service-suggestion-repository';
