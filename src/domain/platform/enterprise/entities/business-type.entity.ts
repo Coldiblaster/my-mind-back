@@ -1,5 +1,4 @@
-import { Entity } from '@/core/entities/entity';
-import { UniqueEntityID } from '@/core/entities/unique-entity-id';
+import { EntityIdNumber } from '@/core/entities/entity-id-number';
 
 export interface BusinessTypeProps {
   icon: string;
@@ -7,7 +6,7 @@ export interface BusinessTypeProps {
   companyIds?: string[];
 }
 
-export class BusinessType extends Entity<BusinessTypeProps> {
+export class BusinessType extends EntityIdNumber<BusinessTypeProps> {
   get icon() {
     return this.props.icon;
   }
@@ -20,7 +19,7 @@ export class BusinessType extends Entity<BusinessTypeProps> {
     return this.props.companyIds;
   }
 
-  static create(props: BusinessTypeProps, id?: UniqueEntityID) {
+  static create(props: BusinessTypeProps, id?: number) {
     const businessType = new BusinessType(props, id);
     return businessType;
   }
