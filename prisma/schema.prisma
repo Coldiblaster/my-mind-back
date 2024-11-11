@@ -92,7 +92,7 @@ model Phone {
 model BusinessType {
   id                Int                 @id @default(autoincrement())
   icon              String
-  label             String
+  label             String              @unique
   company           Company[]
   serviceSuggestion ServiceSuggestion[]
 
