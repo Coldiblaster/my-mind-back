@@ -10,7 +10,6 @@ import { createZodDto } from 'nestjs-zod';
 import { z } from 'zod';
 
 import { EditServiceUseCase } from '@/domain/platform/application/use-cases/service/edit-service';
-import { ServiceDTO } from '@/domain/platform/documents/serviceDTO';
 
 import { ZodValidationPipe } from '../../pipes/zod-validation-pipe';
 
