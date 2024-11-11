@@ -11,6 +11,7 @@
     "prisma:generate": "prisma generate",
     "build": "nest build",
     "deploy": "npm run build && npm run prisma:migrate && npm run prisma:seed",
+    "deploy:start": "npm run deploy && npm start",
     "postinstall": "npm run prisma:generate",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "nest start",
