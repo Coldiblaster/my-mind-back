@@ -1,4 +1,6 @@
 import { Module } from '@nestjs/common';
+import { APP_GUARD } from '@nestjs/core';
+import { ThrottlerGuard } from '@nestjs/throttler';
 
 import { RegisterCompanyUseCase } from '@/domain/register/application/use-cases/register-company';
 
@@ -18,6 +20,12 @@ import { ServiceModule } from './controller/service/service.module';
     BusinessTypeModule,
   ],
   controllers: [RegisterController],
-  providers: [RegisterCompanyUseCase],
+  providers: [
+    RegisterCompanyUseCase,
+    {
+      provide: APP_GUARD,
+      useClass: ThrottlerGuard,
+    },
+  ],
 })
 export class HttpModule { }
