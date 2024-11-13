@@ -18,16 +18,19 @@ model Professional {
   providerId String           @unique @map("provider_id")
   createdAt  DateTime         @default(now()) @map("created_at")
   updatedAt  DateTime?        @updatedAt @map("updated_at")
+  deletedAt  DateTime?        @map("deleted_at")
   companyId  String           @map("company_id")
   role       ProfessionalRole @default(ADMIN)
   email      String           @unique
   name       String?
   document   String?
+  isActive   Boolean          @default(true)
 
-  company              Company                    @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  company              Company               @relation(fields: [companyId], references: [id], onDelete: Cascade)
   phones               Phone[]
-  availabilities       ProfessionalAvailability[]
+  scheduling           Scheduling[]
   professionalServices ProfessionalService[]
+  availabilities       Availability[]
 
   @@map("professionals")
 }
@@ -146,17 +149,68 @@ model OpeningHours {
   @@map("opening_hours")
 }
 
-model ProfessionalAvailability {
+model Availability {
+  id             String   @id @default(uuid())
+  professionalId String   @map("professional_id")
+  date           DateTime @map("date") // Data do dia específico
+  startTime      DateTime @map("start_time") // Hora de início da disponibilidade
+  endTime        DateTime @map("end_time") // Hora de término da disponibilidade
+  isAvailable    Boolean  @default(true) @map("is_available") // Indica se o horário ainda está disponível
+
+  professional Professional @relation(fields: [professionalId], references: [id])
+  schedulings  Scheduling[]
+
+  @@index([professionalId, date, startTime]) // Índice para facilitar buscas por data e hora
+  @@map("availabilities")
+}
+
+model Scheduling {
   id             String    @id @default(uuid())
-  professionalId String    @map("professional_id")
-  date           DateTime  @map("availability_date")
-  startTime      String    @map("start_time")
-  endTime        String    @map("end_time")
-  isBooked       Boolean   @default(false) @map("is_booked")
+  availabilityId String    @map("availability_id")
+  clientId       String    @map("client_id")
+  isBooked       Boolean   @default(true) @map("is_booked")
+  observations   String?
   createdAt      DateTime  @default(now()) @map("created_at")
   updatedAt      DateTime? @updatedAt @map("updated_at")
+  professionalId String?
 
-  professional Professional @relation(fields: [professionalId], references: [id], onDelete: Cascade)
+  availability Availability  @relation(fields: [availabilityId], references: [id])
+  client       Client        @relation(fields: [clientId], references: [id])
+  Professional Professional? @relation(fields: [professionalId], references: [id])
 
-  @@map("professional_availabilities")
+  payment Payment?
+
+  @@index([availabilityId, clientId])
+  @@map("schedulings")
+}
+
+model Client {
+  id       String  @id @default(uuid())
+  name     String
+  email    String  @unique
+  phone    String?
+  document String? // Documento de identificação, se necessário
+
+  schedulings Scheduling[]
+
+  @@map("clients")
+}
+
+model Payment {
+  id           String        @id @default(uuid())
+  schedulingId String        @unique @map("scheduling_id") // Um pagamento por agendamento
+  amount       Float         @map("amount") // Valor cobrado
+  status       PaymentStatus @default(PENDING) // Status do pagamento
+  createdAt    DateTime      @default(now()) @map("created_at")
+  updatedAt    DateTime?     @updatedAt @map("updated_at")
+
+  scheduling Scheduling @relation(fields: [schedulingId], references: [id])
+
+  @@map("payments")
+}
+
+enum PaymentStatus {
+  PENDING
+  COMPLETED
+  FAILED
 }
