@@ -6,6 +6,7 @@ export interface ServiceProps {
   description: string;
   value: number;
   time: number;
+  breakTime?: number | null;
   isActive: boolean;
   createdAt: Date;
   updatedAt?: Date | null;
@@ -29,6 +30,10 @@ export class Service extends Entity<ServiceProps> {
     return this.props.isActive;
   }
 
+  get breakTime() {
+    return this.props.breakTime || 0;
+  }
+
   get deletedAt() {
     return this.props.deletedAt;
   }
@@ -43,6 +48,11 @@ export class Service extends Entity<ServiceProps> {
 
   set time(time: number) {
     this.props.time = time;
+    this.touch();
+  }
+
+  set breakTime(breakTime: number) {
+    this.props.breakTime = breakTime;
     this.touch();
   }
 

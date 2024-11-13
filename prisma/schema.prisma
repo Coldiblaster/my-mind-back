@@ -54,10 +54,12 @@ model Service {
   value                Float
   time                 Float
   isActive             Boolean               @default(true)
+  breakTime            Float?
   createdAt            DateTime              @default(now()) @map("created_at")
   updatedAt            DateTime?             @updatedAt @map("updated_at")
   deletedAt            DateTime?             @map("deleted_at")
   professionalServices ProfessionalService[]
+  availabilityServices AvailabilityService[]
 
   @@map("services")
 }
@@ -157,11 +159,23 @@ model Availability {
   endTime        DateTime @map("end_time") // Hora de término da disponibilidade
   isAvailable    Boolean  @default(true) @map("is_available") // Indica se o horário ainda está disponível
 
-  professional Professional @relation(fields: [professionalId], references: [id])
-  schedulings  Scheduling[]
+  professional        Professional          @relation(fields: [professionalId], references: [id])
+  schedulings         Scheduling[]
+  AvailabilityService AvailabilityService[]
 
   @@index([professionalId, date, startTime]) // Índice para facilitar buscas por data e hora
   @@map("availabilities")
+}
+
+model AvailabilityService {
+  id             String @id @default(uuid())
+  availabilityId String @map("availability_id")
+  serviceId      String @map("service_id")
+
+  availability Availability @relation(fields: [availabilityId], references: [id], onDelete: Cascade)
+  service      Service      @relation(fields: [serviceId], references: [id], onDelete: Cascade)
+
+  @@map("availability_services")
 }
 
 model Scheduling {
