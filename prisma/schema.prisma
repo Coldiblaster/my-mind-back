@@ -185,11 +185,13 @@ model Scheduling {
 }
 
 model Client {
-  id       String  @id @default(uuid())
-  name     String
-  email    String  @unique
-  phone    String?
-  document String? // Documento de identificação, se necessário
+  id        String    @id @default(uuid())
+  name      String
+  email     String    @unique
+  phone     String
+  document  String
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime? @updatedAt @map("updated_at")
 
   schedulings Scheduling[]
 
