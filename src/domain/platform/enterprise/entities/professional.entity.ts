@@ -11,8 +11,10 @@ export interface ProfessionalProps {
   role: $Enums.ProfessionalRole;
   document?: string | null;
   name?: string | null;
+  isActive: boolean;
   createdAt: Date;
   updatedAt?: Date | null;
+  deletedAt?: Date | null;
 }
 
 export class Professional extends Entity<ProfessionalProps> {
@@ -36,6 +38,10 @@ export class Professional extends Entity<ProfessionalProps> {
     return this.props.companyId;
   }
 
+  get isActive() {
+    return this.props.isActive;
+  }
+
   get role() {
     return this.props.role;
   }
@@ -48,13 +54,31 @@ export class Professional extends Entity<ProfessionalProps> {
     return this.props.updatedAt;
   }
 
+  set isActive(isActive: boolean) {
+    this.props.isActive = isActive;
+    this.onDelete(isActive);
+  }
+
+  private onDelete(isActive: boolean) {
+    if (!isActive) {
+      this.props.deletedAt = new Date();
+    } else this.props.deletedAt = null;
+
+    this.touch();
+  }
+
+  private touch() {
+    this.props.updatedAt = new Date();
+  }
+
   static create(
-    props: Optional<ProfessionalProps, 'createdAt'>,
+    props: Optional<ProfessionalProps, 'createdAt' | 'isActive'>,
     id?: UniqueEntityID,
   ) {
     const professional = new Professional(
       {
         ...props,
+        isActive: true,
         createdAt: props.createdAt ?? new Date(),
       },
       id,
