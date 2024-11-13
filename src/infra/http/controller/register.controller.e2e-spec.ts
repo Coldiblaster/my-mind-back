@@ -29,6 +29,7 @@ describe('Register Account (E2E)', () => {
   test('[POST] /register', async () => {
     const response = await request(app.getHttpServer())
       .post('/register')
+      .set('Authorization', `Bearer token`)
       .send({
         address: {
           cep: '47092',
