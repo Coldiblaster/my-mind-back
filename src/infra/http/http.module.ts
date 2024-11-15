@@ -9,6 +9,7 @@ import { DatabaseModule } from '../database/database.module';
 import { StorageModule } from '../storage/storage.module';
 import { BusinessTypeModule } from './controller/business-type/business-type.module';
 import { RegisterController } from './controller/register.controller';
+import { ScheduleModule } from './controller/schedule/schedule.module';
 import { ServiceModule } from './controller/service/service.module';
 
 @Module({
@@ -18,6 +19,7 @@ import { ServiceModule } from './controller/service/service.module';
     CryptographyModule,
     ServiceModule,
     BusinessTypeModule,
+    ScheduleModule,
   ],
   controllers: [RegisterController],
   providers: [

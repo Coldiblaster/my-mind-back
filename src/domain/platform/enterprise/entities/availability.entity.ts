@@ -8,6 +8,8 @@ export interface AvailabilityProps {
   startTime: Date;
   endTime: Date;
   isAvailable: boolean;
+  createdAt: Date;
+  updatedAt?: Date | null;
 }
 
 export class Availability extends Entity<AvailabilityProps> {
@@ -31,30 +33,47 @@ export class Availability extends Entity<AvailabilityProps> {
     return this.props.isAvailable;
   }
 
+  get createdAt() {
+    return this.props.createdAt;
+  }
+
+  get updatedAt() {
+    return this.props.updatedAt;
+  }
+
   set date(date: Date) {
     this.props.date = date;
+    this.touch();
   }
 
   set startTime(startTime: Date) {
     this.props.startTime = startTime;
+    this.touch();
   }
 
   set endTime(endTime: Date) {
     this.props.endTime = endTime;
+    this.touch();
   }
 
   set isAvailable(isAvailable: boolean) {
     this.props.isAvailable = isAvailable;
+    this.touch();
+  }
+
+  private touch() {
+    this.props.updatedAt = new Date();
   }
 
   static create(
-    props: Optional<AvailabilityProps, 'isAvailable'>,
+    props: Optional<AvailabilityProps, 'isAvailable' | 'createdAt'>,
     id?: UniqueEntityID,
   ) {
     const availability = new Availability(
       {
         ...props,
         isAvailable: true,
+        createdAt: props.createdAt ?? new Date(),
       },
       id,
     );

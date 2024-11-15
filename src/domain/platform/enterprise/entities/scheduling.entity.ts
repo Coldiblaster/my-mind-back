@@ -5,6 +5,7 @@ import { Optional } from '@/core/types/optional';
 export interface SchedulingProps {
   availabilityId: UniqueEntityID;
   clientId: UniqueEntityID;
+  serviceId: UniqueEntityID;
   professionalId?: UniqueEntityID;
   isBooked: boolean;
   observations: string;
@@ -19,6 +20,10 @@ export class Scheduling extends Entity<SchedulingProps> {
 
   get clientId() {
     return this.props.clientId;
+  }
+
+  get serviceId() {
+    return this.props.serviceId;
   }
 
   get professionalId() {

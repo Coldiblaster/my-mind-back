@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 
 import { AddressRepository } from '@/domain/platform/application/repositories/address-repository';
+import { AvailabilityRepository } from '@/domain/platform/application/repositories/availability-repository';
 import { BusinessTypeRepository } from '@/domain/platform/application/repositories/business-type-repository';
 import { OpeningHoursRepository } from '@/domain/platform/application/repositories/opening-hours-repository';
 import { ProfessionalRepository } from '@/domain/platform/application/repositories/professional-repository';
@@ -12,6 +13,7 @@ import { RegisterRepository } from '@/domain/register/application/repositories/r
 import { CacheModule } from '../cache/cache.module';
 import { PrismaService } from './prisma/prisma.service';
 import { PrismaAddressRepository } from './prisma/repositories/prisma-address-repository';
+import { PrismaAvailabilityRepository } from './prisma/repositories/prisma-availability-repository';
 import { PrismaBusinessTypeRepository } from './prisma/repositories/prisma-business-type-repository';
 import { PrismaOpeningHoursRepository } from './prisma/repositories/prisma-opening-hours-repository ';
 import { PrismaProfessionalRepository } from './prisma/repositories/prisma-professional-repository';
@@ -56,6 +58,10 @@ import { PrismaServiceSuggestionRepository } from './prisma/repositories/prisma-
       provide: BusinessTypeRepository,
       useClass: PrismaBusinessTypeRepository,
     },
+    {
+      provide: AvailabilityRepository,
+      useClass: PrismaAvailabilityRepository,
+    },
   ],
   exports: [
     PrismaService,
@@ -67,6 +73,7 @@ import { PrismaServiceSuggestionRepository } from './prisma/repositories/prisma-
     ServiceRepository,
     ServiceSuggestionRepository,
     BusinessTypeRepository,
+    AvailabilityRepository,
   ],
 })
 export class DatabaseModule { }
