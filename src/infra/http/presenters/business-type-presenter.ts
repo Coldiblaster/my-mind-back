@@ -3,7 +3,7 @@ import { BusinessType } from '@/domain/platform/enterprise/entities/business-typ
 export class BusinessTypePresenter {
   static toHTTP(businessType: BusinessType) {
     return {
-      id: businessType.id.toString(),
+      id: businessType.id,
       label: businessType.label,
       icon: businessType.icon,
     };
