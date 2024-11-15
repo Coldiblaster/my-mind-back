@@ -32,16 +32,16 @@ export class CreateServiceSuggestionUseCase {
   }: CreateServiceSuggestionUseCaseRequest): Promise<CreateServiceSuggestionUseCaseResponse> {
     let serviceSuggestions: ServiceSuggestion[] | null = [];
 
-    if (businessTypeId > 0) {
-      serviceSuggestions =
-        await this.serviceSuggestionRepository.findAll(businessTypeId);
+    const existingSuggestedServices =
+      await this.serviceSuggestionRepository.findAll(businessTypeId);
 
-      if (serviceSuggestions?.length === 0) {
-        const newGenerateService = await this.ia.generateServiceSuggestion(
-          segment,
-          businessTypeId,
-        );
+    if (!existingSuggestedServices) {
+      const newGenerateService = await this.ia.generateServiceSuggestion(
+        segment,
+        businessTypeId,
+      );
 
+      if (businessTypeId < 21) {
         serviceSuggestions = await Promise.all(
           newGenerateService.map(async generateService => {
             const newServiceSuggestion =
@@ -52,22 +52,17 @@ export class CreateServiceSuggestionUseCase {
             return newServiceSuggestion;
           }),
         );
+      } else {
+        serviceSuggestions = await Promise.all(
+          newGenerateService.map(async generateService => {
+            const newServiceSuggestion =
+              ServiceSuggestion.create(generateService);
+
+            return newServiceSuggestion;
+          }),
+        );
       }
-    } else {
-      const newGenerateService = await this.ia.generateServiceSuggestion(
-        segment,
-        businessTypeId,
-      );
-
-      serviceSuggestions = await Promise.all(
-        newGenerateService.map(async generateService => {
-          const newServiceSuggestion =
-            ServiceSuggestion.create(generateService);
-
-          return newServiceSuggestion;
-        }),
-      );
-    }
+    } else serviceSuggestions = existingSuggestedServices;
 
     if (!serviceSuggestions) {
       return left(new ResourceNotFoundError());
