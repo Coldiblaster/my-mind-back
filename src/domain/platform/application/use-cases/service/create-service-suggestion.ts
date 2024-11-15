@@ -35,7 +35,7 @@ export class CreateServiceSuggestionUseCase {
     const existingSuggestedServices =
       await this.serviceSuggestionRepository.findAll(businessTypeId);
 
-    if (!existingSuggestedServices) {
+    if (existingSuggestedServices?.length === 0) {
       const newGenerateService = await this.ia.generateServiceSuggestion(
         segment,
         businessTypeId,
