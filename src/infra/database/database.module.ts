@@ -3,6 +3,7 @@ import { Module } from '@nestjs/common';
 import { AddressRepository } from '@/domain/platform/application/repositories/address-repository';
 import { AvailabilityRepository } from '@/domain/platform/application/repositories/availability-repository';
 import { BusinessTypeRepository } from '@/domain/platform/application/repositories/business-type-repository';
+import { CompanyRepository } from '@/domain/platform/application/repositories/company-repository';
 import { OpeningHoursRepository } from '@/domain/platform/application/repositories/opening-hours-repository';
 import { ProfessionalRepository } from '@/domain/platform/application/repositories/professional-repository';
 import { ProfessionalServicesRepository } from '@/domain/platform/application/repositories/professional-services-repository';
@@ -15,6 +16,7 @@ import { PrismaService } from './prisma/prisma.service';
 import { PrismaAddressRepository } from './prisma/repositories/prisma-address-repository';
 import { PrismaAvailabilityRepository } from './prisma/repositories/prisma-availability-repository';
 import { PrismaBusinessTypeRepository } from './prisma/repositories/prisma-business-type-repository';
+import { PrismaCompanyRepository } from './prisma/repositories/prisma-company-repository';
 import { PrismaOpeningHoursRepository } from './prisma/repositories/prisma-opening-hours-repository ';
 import { PrismaProfessionalRepository } from './prisma/repositories/prisma-professional-repository';
 import { PrismaProfessionalServicesRepository } from './prisma/repositories/prisma-professional-services-repository';
@@ -62,6 +64,10 @@ import { PrismaServiceSuggestionRepository } from './prisma/repositories/prisma-
       provide: AvailabilityRepository,
       useClass: PrismaAvailabilityRepository,
     },
+    {
+      provide: CompanyRepository,
+      useClass: PrismaCompanyRepository,
+    },
   ],
   exports: [
     PrismaService,
@@ -74,6 +80,7 @@ import { PrismaServiceSuggestionRepository } from './prisma/repositories/prisma-
     ServiceSuggestionRepository,
     BusinessTypeRepository,
     AvailabilityRepository,
+    CompanyRepository,
   ],
 })
 export class DatabaseModule { }

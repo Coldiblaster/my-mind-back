@@ -8,6 +8,8 @@ import { CryptographyModule } from '../cryptography/cryptography.module';
 import { DatabaseModule } from '../database/database.module';
 import { StorageModule } from '../storage/storage.module';
 import { BusinessTypeModule } from './controller/business-type/business-type.module';
+import { CompanyModule } from './controller/company/company.module';
+import { ProfessionalModule } from './controller/professional/professional.module';
 import { RegisterController } from './controller/register.controller';
 import { ScheduleModule } from './controller/schedule/schedule.module';
 import { ServiceModule } from './controller/service/service.module';
@@ -20,6 +22,8 @@ import { ServiceModule } from './controller/service/service.module';
     ServiceModule,
     BusinessTypeModule,
     ScheduleModule,
+    ProfessionalModule,
+    CompanyModule,
   ],
   controllers: [RegisterController],
   providers: [

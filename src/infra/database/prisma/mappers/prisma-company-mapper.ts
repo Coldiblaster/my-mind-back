@@ -11,6 +11,7 @@ export class PrismaCompanyMapper {
         businessTypeId: raw.businessTypeId ? raw.businessTypeId : null,
         customSegment: raw.customSegment ? raw.customSegment : null,
         name: raw.name ? raw.name : null,
+        link: raw.link ? raw.link : null,
         createdAt: raw.createdAt,
         updatedAt: raw.updatedAt,
       },
@@ -25,6 +26,7 @@ export class PrismaCompanyMapper {
       businessTypeId: company?.businessTypeId,
       customSegment: company?.customSegment,
       name: company?.name,
+      link: company?.link,
       createdAt: company.createdAt,
       updatedAt: company.updatedAt,
     };

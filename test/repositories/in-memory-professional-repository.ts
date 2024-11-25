@@ -43,6 +43,16 @@ export class InMemoryProfessionalRepository implements ProfessionalRepository {
     return professional;
   }
 
+  async findByUserName(userName: string) {
+    const professional = this.items.find(item => item.userName === userName);
+
+    if (!professional) {
+      return null;
+    }
+
+    return professional;
+  }
+
   async create(professional: Professional) {
     this.items.push(professional);
 

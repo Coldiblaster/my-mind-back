@@ -8,7 +8,7 @@ import { PrismaService } from '../prisma.service';
 
 @Injectable()
 export class PrismaProfessionalRepository implements ProfessionalRepository {
-  constructor(private prisma: PrismaService) {}
+  constructor(private prisma: PrismaService) { }
 
   async save(professional: Professional): Promise<void> {
     const data = PrismaProfessionalMapper.toPrisma(professional);
@@ -25,6 +25,20 @@ export class PrismaProfessionalRepository implements ProfessionalRepository {
     const professional = await this.prisma.professional.findUnique({
       where: {
         email,
+      },
+    });
+
+    if (!professional) {
+      return null;
+    }
+
+    return PrismaProfessionalMapper.toDomain(professional);
+  }
+
+  async findByUserName(userName: string): Promise<Professional | null> {
+    const professional = await this.prisma.professional.findUnique({
+      where: {
+        userName,
       },
     });
 

@@ -11,6 +11,7 @@ export interface ProfessionalProps {
   role: $Enums.ProfessionalRole;
   document?: string | null;
   name?: string | null;
+  userName?: string | null;
   isActive: boolean;
   createdAt: Date;
   updatedAt?: Date | null;
@@ -46,12 +47,23 @@ export class Professional extends Entity<ProfessionalProps> {
     return this.props.role;
   }
 
+  get userName() {
+    return this.props.userName;
+  }
+
   get createdAt() {
     return this.props.createdAt;
   }
 
   get updatedAt() {
     return this.props.updatedAt;
+  }
+
+  set userName(userName: string | undefined | null) {
+    if (userName) {
+      this.props.userName = userName;
+      this.touch();
+    }
   }
 
   set isActive(isActive: boolean) {

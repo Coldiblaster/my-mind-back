@@ -47,7 +47,7 @@ export class RegisterCompanyUseCase {
       await this.professionalRepository.findByProviderID(providerId);
 
     if (professionalWithSameProvider) {
-      return left(new ProfessionalAlreadyExistsError(email));
+      return left(new ProfessionalAlreadyExistsError(providerId));
     }
 
     const newAddress = Address.create(address);

@@ -7,6 +7,7 @@ export interface CompanyProps {
   addressId: UniqueEntityID;
   businessTypeId?: number | null;
   customSegment?: string | null;
+  link?: string | null;
   createdAt: Date;
   updatedAt?: Date | null;
 }
@@ -28,12 +29,27 @@ export class Company extends Entity<CompanyProps> {
     return this.props.customSegment;
   }
 
+  get link() {
+    return this.props.link;
+  }
+
   get createdAt() {
     return this.props.createdAt;
   }
 
   get updatedAt() {
     return this.props.updatedAt;
+  }
+
+  set link(link: string | undefined | null) {
+    if (link) {
+      this.props.link = link;
+      this.touch();
+    }
+  }
+
+  private touch() {
+    this.props.updatedAt = new Date();
   }
 
   static create(
