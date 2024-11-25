@@ -8,7 +8,7 @@ import { CurrentUser } from '@/infra/auth/current-user.decorator';
 
 import { CompanyPresenter } from '../../presenters/company-presenter';
 
-@Controller('/company')
+@Controller('/company-by-id')
 export class FetchCompanyByIdController {
   constructor(private fetchCompanyById: FetchCompanyByIdUseCase) { }
 

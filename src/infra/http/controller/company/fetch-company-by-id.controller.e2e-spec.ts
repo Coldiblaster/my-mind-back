@@ -42,7 +42,7 @@ describe('Fetch Company By Id (E2E)', () => {
     await app.init();
   });
 
-  test('[GET] /service/:serviceId', async () => {
+  test('[GET] /company-by-id', async () => {
     const newAddress = await addressFactory.makePrismaAddress();
     const newCompany = await companyFactory.makePrismaCompany({
       addressId: newAddress.id,
@@ -58,7 +58,7 @@ describe('Fetch Company By Id (E2E)', () => {
     });
 
     const response = await request(app.getHttpServer())
-      .get(`/company`)
+      .get(`/company-by-id`)
       .set('Authorization', `Bearer ${accessToken}`)
       .send();
 
