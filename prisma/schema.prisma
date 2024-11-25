@@ -23,6 +23,7 @@ model Professional {
   role       ProfessionalRole @default(ADMIN)
   email      String           @unique
   name       String?
+  userName   String?          @unique @map("user_name")
   document   String?
   isActive   Boolean          @default(true)
 
@@ -73,6 +74,7 @@ model Company {
   businessTypeId Int?      @map("business_type_id")
   customSegment  String?
   name           String?
+  link           String?   @unique @map("link")
 
   address       Address        @relation(fields: [addressId], references: [id], onDelete: Cascade)
   businessType  BusinessType?  @relation(fields: [businessTypeId], references: [id])
