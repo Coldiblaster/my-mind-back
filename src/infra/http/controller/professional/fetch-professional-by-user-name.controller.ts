@@ -13,7 +13,7 @@ import { ServiceDTO } from '@/domain/platform/documents/serviceDTO';
 
 import { ProfessionalPresenter } from '../../presenters/professional-presenter';
 
-@Controller('/professional/:userName')
+@Controller('/professional/profile/:userName')
 export class FetchProfessionalByUserNameController {
   constructor(
     private fetchProfessionalByUserName: FetchProfessionalByUserNameUseCase,

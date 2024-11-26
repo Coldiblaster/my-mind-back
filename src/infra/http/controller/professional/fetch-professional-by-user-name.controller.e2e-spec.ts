@@ -42,7 +42,7 @@ describe('Fetch Professional By UserName (E2E)', () => {
     await app.init();
   });
 
-  test('[GET] /professional/:userName', async () => {
+  test('[GET] /professional/profile/:userName', async () => {
     const newAddress = await addressFactory.makePrismaAddress();
     const newCompany = await companyFactory.makePrismaCompany({
       addressId: newAddress.id,
@@ -61,7 +61,7 @@ describe('Fetch Professional By UserName (E2E)', () => {
     });
 
     const response = await request(app.getHttpServer())
-      .get(`/professional/${professional.userName}`)
+      .get(`/professional/profile/${professional.userName}`)
       .set('Authorization', `Bearer ${accessToken}`)
       .send();
 
