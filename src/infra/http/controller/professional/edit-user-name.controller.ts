@@ -2,8 +2,8 @@ import {
   BadRequestException,
   Body,
   Controller,
+  NotFoundException,
   Put,
-  UnauthorizedException,
 } from '@nestjs/common';
 import { ApiBearerAuth, ApiBody, ApiResponse } from '@nestjs/swagger';
 import { createZodDto } from 'nestjs-zod';
@@ -41,7 +41,7 @@ export class EditUserNameController {
     description: 'The request was successful.',
   })
   @ApiResponse({ status: 400, description: 'Bad Request.' })
-  @ApiResponse({ status: 401, description: 'Unauthorized.' })
+  @ApiResponse({ status: 404, description: 'Not Found.' })
   async handle(
     @Body(bodyValidationPipe) body: EditUserNameBodySchema,
     @CurrentUser() user: UserPayload,
@@ -58,9 +58,9 @@ export class EditUserNameController {
 
       switch (error.constructor) {
         case ProfessionalDoesNotExistError:
-          throw new UnauthorizedException(error.message);
+          throw new NotFoundException(error.message);
         case ProfessionalUserNameAlreadyExistsError:
-          throw new UnauthorizedException(error.message);
+          throw new NotFoundException(error.message);
         default:
           throw new BadRequestException(error.message);
       }
