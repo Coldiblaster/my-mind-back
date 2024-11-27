@@ -9,9 +9,10 @@ import { ApiResponse } from '@nestjs/swagger';
 
 import { ProfessionalUserNameAlreadyExistsError } from '@/domain/platform/application/errors/professional-user-name-already-exists-error';
 import { FetchProfessionalByUserNameUseCase } from '@/domain/platform/application/use-cases/professional/fetch-professional-by-user-name';
-import { ServiceDTO } from '@/domain/platform/documents/serviceDTO';
+import { ProfessionalPublicDTO } from '@/domain/platform/documents/professionalPublicDTO';
+import { Public } from '@/infra/auth/public';
 
-import { ProfessionalPresenter } from '../../presenters/professional-presenter';
+import { ProfessionalPublicPresenter } from '../../presenters/professional-public-presenter';
 
 @Controller('/professional/profile/:userName')
 export class FetchProfessionalByUserNameController {
@@ -20,10 +21,11 @@ export class FetchProfessionalByUserNameController {
   ) { }
 
   @Get()
+  @Public()
   @ApiResponse({
     status: 200,
     description: 'The request was successful.',
-    type: ServiceDTO,
+    type: ProfessionalPublicDTO,
   })
   @ApiResponse({ status: 400, description: 'Bad Request.' })
   @ApiResponse({ status: 404, description: 'Not Found.' })
@@ -42,8 +44,6 @@ export class FetchProfessionalByUserNameController {
       }
     }
 
-    return {
-      professional: ProfessionalPresenter.toHTTP(result.value.professional),
-    };
+    return ProfessionalPublicPresenter.toHTTP(result.value.professional);
   }
 }
