@@ -1,3 +1,5 @@
+import { $Enums } from '@prisma/client';
+
 import { Entity } from '@/core/entities/entity';
 import { UniqueEntityID } from '@/core/entities/unique-entity-id';
 import { Optional } from '@/core/types/optional';
@@ -9,6 +11,7 @@ export interface SchedulingProps {
   professionalId?: UniqueEntityID;
   isBooked: boolean;
   observations: string;
+  status: $Enums.SchedulingStatus;
   createdAt: Date;
   updatedAt?: Date | null;
 }
@@ -38,6 +41,10 @@ export class Scheduling extends Entity<SchedulingProps> {
     return this.props.observations;
   }
 
+  get status() {
+    return this.props.status;
+  }
+
   get createdAt() {
     return this.props.observations;
   }
@@ -53,6 +60,11 @@ export class Scheduling extends Entity<SchedulingProps> {
 
   set observations(observations: string) {
     this.props.observations = observations;
+    this.touch();
+  }
+
+  set status(status: $Enums.SchedulingStatus) {
+    this.props.status = status;
     this.touch();
   }
 
