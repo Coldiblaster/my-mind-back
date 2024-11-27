@@ -12,6 +12,8 @@ export interface ProfessionalProps {
   document?: string | null;
   name?: string | null;
   userName?: string | null;
+  bio?: string | null;
+  occupation?: string | null;
   isActive: boolean;
   createdAt: Date;
   updatedAt?: Date | null;
@@ -47,6 +49,14 @@ export class Professional extends Entity<ProfessionalProps> {
     return this.props.role;
   }
 
+  get bio() {
+    return this.props.bio;
+  }
+
+  get occupation() {
+    return this.props.occupation;
+  }
+
   get userName() {
     return this.props.userName;
   }
@@ -62,6 +72,34 @@ export class Professional extends Entity<ProfessionalProps> {
   set userName(userName: string | undefined | null) {
     if (userName) {
       this.props.userName = userName;
+      this.touch();
+    }
+  }
+
+  set bio(bio: string | undefined | null) {
+    if (bio) {
+      this.props.bio = bio;
+      this.touch();
+    }
+  }
+
+  set occupation(occupation: string | undefined | null) {
+    if (occupation) {
+      this.props.occupation = occupation;
+      this.touch();
+    }
+  }
+
+  set name(name: string | undefined | null) {
+    if (name) {
+      this.props.name = name;
+      this.touch();
+    }
+  }
+
+  set document(document: string | undefined | null) {
+    if (document) {
+      this.props.document = document;
       this.touch();
     }
   }
