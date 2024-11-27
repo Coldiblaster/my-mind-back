@@ -78,7 +78,6 @@ model Service {
   value       Float
   time        Float
   isActive    Boolean   @default(true)
-  breakTime   Float?
   createdAt   DateTime  @default(now()) @map("created_at")
   updatedAt   DateTime? @updatedAt @map("updated_at")
   deletedAt   DateTime? @map("deleted_at")
