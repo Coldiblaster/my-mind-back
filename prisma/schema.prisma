@@ -13,6 +13,14 @@ enum ProfessionalRole {
   EMPLOYEE
 }
 
+enum SchedulingStatus {
+  PENDING
+  CONFIRMED
+  CANCELED
+  COMPLETED
+  NO_SHOW
+}
+
 model Professional {
   id         String           @id @default(uuid())
   providerId String           @unique @map("provider_id")
@@ -26,14 +34,29 @@ model Professional {
   userName   String?          @unique @map("user_name")
   document   String?
   isActive   Boolean          @default(true)
+  occupation String?
+  bio        String?
 
-  company              Company               @relation(fields: [companyId], references: [id], onDelete: Cascade)
-  phones               Phone[]
-  scheduling           Scheduling[]
-  professionalServices ProfessionalService[]
-  availabilities       Availability[]
+  company                 Company                   @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  phones                  Phone[]
+  scheduling              Scheduling[]
+  professionalServices    ProfessionalService[]
+  availabilities          Availability[]
+  professionalSocialMedia ProfessionalSocialMedia[]
 
   @@map("professionals")
+}
+
+model ProfessionalSocialMedia {
+  id             String @id @default(uuid())
+  professionalId String @map("professional_id")
+  platform       String // Ex.: "LinkedIn", "Instagram", "Facebook"
+  url            String // Link completo para a rede social
+
+  professional Professional @relation(fields: [professionalId], references: [id])
+
+  @@index([professionalId])
+  @@map("professional_social_media")
 }
 
 model ProfessionalService {
@@ -88,6 +111,7 @@ model Company {
 model Phone {
   id             String  @id @default(uuid())
   phone          String
+  type           String // Ex.: "Celular", "Whatsapp", "Fixo"
   companyId      String? @map("company_id")
   professionalId String? @map("professional_id")
 
@@ -172,25 +196,42 @@ model Availability {
 }
 
 model Scheduling {
-  id             String    @id @default(uuid())
-  availabilityId String    @map("availability_id")
-  clientId       String    @map("client_id")
-  isBooked       Boolean   @default(true) @map("is_booked")
+  id             String           @id @default(uuid())
+  availabilityId String           @map("availability_id")
+  clientId       String           @map("client_id")
+  isBooked       Boolean          @default(true) @map("is_booked")
   observations   String?
-  createdAt      DateTime  @default(now()) @map("created_at")
-  updatedAt      DateTime? @updatedAt @map("updated_at")
-  professionalId String?
-  serviceId      String    @map("service_id")
+  createdAt      DateTime         @default(now()) @map("created_at")
+  updatedAt      DateTime?        @updatedAt @map("updated_at")
+  professionalId String
+  serviceId      String           @map("service_id")
+  status         SchedulingStatus @default(PENDING)
 
-  availability Availability  @relation(fields: [availabilityId], references: [id])
-  client       Client        @relation(fields: [clientId], references: [id])
-  professional Professional? @relation(fields: [professionalId], references: [id])
-  service      Service       @relation(fields: [serviceId], references: [id])
+  availability Availability @relation(fields: [availabilityId], references: [id])
+  client       Client       @relation(fields: [clientId], references: [id])
+  professional Professional @relation(fields: [professionalId], references: [id])
+  service      Service      @relation(fields: [serviceId], references: [id])
+  payment      Payment?
+  review       Review[]
 
-  payment Payment?
-
-  @@index([availabilityId, clientId])
+  @@index([availabilityId, clientId, professionalId])
   @@map("schedulings")
+}
+
+model Review {
+  id           String    @id @default(uuid())
+  rating       Int
+  comment      String?
+  createdAt    DateTime  @default(now()) @map("created_at")
+  updatedAt    DateTime? @updatedAt @map("updated_at")
+  schedulingId String    @map("scheduling_id")
+  clientId     String    @map("client_id")
+
+  scheduling Scheduling @relation(fields: [schedulingId], references: [id])
+
+  client Client @relation(fields: [clientId], references: [id])
+
+  @@map("reviews")
 }
 
 model Client {
@@ -203,6 +244,7 @@ model Client {
   updatedAt DateTime? @updatedAt @map("updated_at")
 
   schedulings Scheduling[]
+  review      Review[]
 
   @@map("clients")
 }
