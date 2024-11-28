@@ -13,7 +13,7 @@ type PrismaProfessionalWithService = PrismaProfessionalService & {
 export class PrismaProfessionalWithServiceMapper {
   static toDomain(raw: PrismaProfessionalWithService): ProfessionalWithService {
     return ProfessionalWithService.create({
-      professionalId: new UniqueEntityID(raw.id),
+      professionalId: new UniqueEntityID(raw.professionalId),
       serviceId: new UniqueEntityID(raw.serviceId),
       description: raw.service.description,
       time: raw.service.time,

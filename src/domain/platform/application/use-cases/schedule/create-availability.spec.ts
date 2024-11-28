@@ -2,6 +2,8 @@ import { makeAvailability } from 'test/factories/make-availability';
 import { makeProfessional } from 'test/factories/make-professional';
 import { InMemoryAvailabilityRepository } from 'test/repositories/in-memory-availability-repository';
 import { InMemoryProfessionalRepository } from 'test/repositories/in-memory-professional-repository';
+import { InMemoryProfessionalServicesRepository } from 'test/repositories/in-memory-professional-services-repository';
+import { InMemoryServiceRepository } from 'test/repositories/in-memory-service-repository';
 
 import { AvailabilityConflictError } from '../../errors/availability-conflict-error';
 import { InvalidDateError } from '../../errors/invalid-date-error';
@@ -9,12 +11,24 @@ import { CreateAvailabilityUseCase } from './create-availability';
 
 let inMemoryProfessionalRepository: InMemoryProfessionalRepository;
 let inMemoryAvailabilityRepository: InMemoryAvailabilityRepository;
+let inMemoryServiceRepository: InMemoryServiceRepository;
+let inMemoryProfessionalServicesRepository: InMemoryProfessionalServicesRepository;
 
 let sut: CreateAvailabilityUseCase;
 
 describe('Create availability', () => {
   beforeEach(() => {
-    inMemoryProfessionalRepository = new InMemoryProfessionalRepository();
+    inMemoryProfessionalServicesRepository =
+      new InMemoryProfessionalServicesRepository();
+
+    inMemoryServiceRepository = new InMemoryServiceRepository(
+      inMemoryProfessionalServicesRepository,
+    );
+
+    inMemoryProfessionalRepository = new InMemoryProfessionalRepository(
+      inMemoryServiceRepository,
+      inMemoryProfessionalServicesRepository,
+    );
     inMemoryAvailabilityRepository = new InMemoryAvailabilityRepository();
 
     sut = new CreateAvailabilityUseCase(

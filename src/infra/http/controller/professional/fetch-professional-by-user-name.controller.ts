@@ -12,7 +12,7 @@ import { FetchProfessionalByUserNameUseCase } from '@/domain/platform/applicatio
 import { ProfessionalPublicDTO } from '@/domain/platform/documents/professionalPublicDTO';
 import { Public } from '@/infra/auth/public';
 
-import { ProfessionalPublicPresenter } from '../../presenters/professional-public-presenter';
+import { ProfessionalDetailsPresenter } from '../../presenters/professional-details-presenter';
 
 @Controller('/professional/profile/:userName')
 export class FetchProfessionalByUserNameController {
@@ -33,6 +33,7 @@ export class FetchProfessionalByUserNameController {
     const result = await this.fetchProfessionalByUserName.execute({
       userName,
     });
+
     if (result.isLeft()) {
       const error = result.value;
 
@@ -44,6 +45,6 @@ export class FetchProfessionalByUserNameController {
       }
     }
 
-    return ProfessionalPublicPresenter.toHTTP(result.value.professional);
+    return ProfessionalDetailsPresenter.toHTTP(result.value.professional);
   }
 }

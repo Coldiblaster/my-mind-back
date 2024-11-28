@@ -1,16 +1,30 @@
 import { makeProfessional } from 'test/factories/make-professional';
 import { InMemoryProfessionalRepository } from 'test/repositories/in-memory-professional-repository';
+import { InMemoryProfessionalServicesRepository } from 'test/repositories/in-memory-professional-services-repository';
+import { InMemoryServiceRepository } from 'test/repositories/in-memory-service-repository';
 
 import { ProfessionalUserNameAlreadyExistsError } from '../../errors/professional-user-name-already-exists-error';
 import { EditUserNameUseCase } from './edit-user-name';
 
 let inMemoryProfessionalRepository: InMemoryProfessionalRepository;
+let inMemoryServiceRepository: InMemoryServiceRepository;
+let inMemoryProfessionalServicesRepository: InMemoryProfessionalServicesRepository;
 
 let sut: EditUserNameUseCase;
 
 describe('Edit username', () => {
   beforeEach(() => {
-    inMemoryProfessionalRepository = new InMemoryProfessionalRepository();
+    inMemoryProfessionalServicesRepository =
+      new InMemoryProfessionalServicesRepository();
+
+    inMemoryServiceRepository = new InMemoryServiceRepository(
+      inMemoryProfessionalServicesRepository,
+    );
+
+    inMemoryProfessionalRepository = new InMemoryProfessionalRepository(
+      inMemoryServiceRepository,
+      inMemoryProfessionalServicesRepository,
+    );
 
     sut = new EditUserNameUseCase(inMemoryProfessionalRepository);
   });

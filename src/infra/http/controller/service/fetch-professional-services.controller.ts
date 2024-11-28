@@ -15,7 +15,7 @@ import { UserPayload } from '@/infra/auth/clerk.strategy';
 import { CurrentUser } from '@/infra/auth/current-user.decorator';
 import { ZodValidationPipe } from '@/infra/http/pipes/zod-validation-pipe';
 
-import { ProfessionalWithServicePresenter } from '../../presenters/professional-with-presenter';
+import { ProfessionalWithServicePresenter } from '../../presenters/professional-with-service-presenter';
 
 const pageQueryParamSchema = z
   .string()

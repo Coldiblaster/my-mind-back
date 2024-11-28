@@ -2,7 +2,9 @@ import { makeAddress } from 'test/factories/make-address';
 import { makeProfessional } from 'test/factories/make-professional';
 import { InMemoryAddressRepository } from 'test/repositories/in-memory-address-repository';
 import { InMemoryProfessionalRepository } from 'test/repositories/in-memory-professional-repository';
+import { InMemoryProfessionalServicesRepository } from 'test/repositories/in-memory-professional-services-repository';
 import { InMemoryRegisterRepository } from 'test/repositories/in-memory-register-repository';
+import { InMemoryServiceRepository } from 'test/repositories/in-memory-service-repository';
 
 import { ProfessionalAlreadyExistsError } from './errors/professional-already-exists-error';
 import { RegisterCompanyUseCase } from './register-company';
@@ -10,12 +12,25 @@ import { RegisterCompanyUseCase } from './register-company';
 let inMemoryProfessionalRepository: InMemoryProfessionalRepository;
 let inMemoryRegisterRepository: InMemoryRegisterRepository;
 let inMemoryAddressRepository: InMemoryAddressRepository;
+let inMemoryProfessionalServicesRepository: InMemoryProfessionalServicesRepository;
+let inMemoryServiceRepository: InMemoryServiceRepository;
 
 let sut: RegisterCompanyUseCase;
 
 describe('Register company', () => {
   beforeEach(() => {
-    inMemoryProfessionalRepository = new InMemoryProfessionalRepository();
+    inMemoryProfessionalRepository = new InMemoryProfessionalRepository(
+      inMemoryServiceRepository,
+      inMemoryProfessionalServicesRepository,
+    );
+
+    inMemoryProfessionalServicesRepository =
+      new InMemoryProfessionalServicesRepository();
+
+    inMemoryServiceRepository = new InMemoryServiceRepository(
+      inMemoryProfessionalServicesRepository,
+    );
+
     inMemoryRegisterRepository = new InMemoryRegisterRepository();
     inMemoryAddressRepository = new InMemoryAddressRepository();
 

@@ -1,16 +1,29 @@
 import { makeProfessional } from 'test/factories/make-professional';
 import { InMemoryProfessionalRepository } from 'test/repositories/in-memory-professional-repository';
+import { InMemoryProfessionalServicesRepository } from 'test/repositories/in-memory-professional-services-repository';
+import { InMemoryServiceRepository } from 'test/repositories/in-memory-service-repository';
 
 import { EditMeUseCase } from './edit-me';
 
 let inMemoryProfessionalRepository: InMemoryProfessionalRepository;
+let inMemoryServiceRepository: InMemoryServiceRepository;
+let inMemoryProfessionalServicesRepository: InMemoryProfessionalServicesRepository;
 
 let sut: EditMeUseCase;
 
 describe('Edit me', () => {
   beforeEach(() => {
-    inMemoryProfessionalRepository = new InMemoryProfessionalRepository();
+    inMemoryProfessionalServicesRepository =
+      new InMemoryProfessionalServicesRepository();
 
+    inMemoryServiceRepository = new InMemoryServiceRepository(
+      inMemoryProfessionalServicesRepository,
+    );
+
+    inMemoryProfessionalRepository = new InMemoryProfessionalRepository(
+      inMemoryServiceRepository,
+      inMemoryProfessionalServicesRepository,
+    );
     sut = new EditMeUseCase(inMemoryProfessionalRepository);
   });
 

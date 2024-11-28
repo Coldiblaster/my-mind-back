@@ -28,7 +28,7 @@ export class EditUserNameUseCase {
     providerId,
   }: EditUserNameUseCaseRequest): Promise<EditUserNameUseCaseResponse> {
     const professionalWithSameUserName =
-      await this.professionalRepository.findByUserName(userName);
+      await this.professionalRepository.findDetailsByUserName(userName);
 
     if (professionalWithSameUserName) {
       return left(new ProfessionalUserNameAlreadyExistsError(userName));

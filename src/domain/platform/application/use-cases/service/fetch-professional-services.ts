@@ -24,7 +24,7 @@ export class FetchProfessionalServicesUseCase {
   constructor(
     private serviceRepository: ServiceRepository,
     private professionalRepository: ProfessionalRepository,
-  ) {}
+  ) { }
 
   async execute({
     page,

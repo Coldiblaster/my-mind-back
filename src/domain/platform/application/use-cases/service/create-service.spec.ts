@@ -13,7 +13,10 @@ let sut: CreateServiceUseCase;
 
 describe('Create service', () => {
   beforeEach(() => {
-    inMemoryProfessionalRepository = new InMemoryProfessionalRepository();
+    inMemoryProfessionalRepository = new InMemoryProfessionalRepository(
+      inMemoryServiceRepository,
+      inMemoryProfessionalServicesRepository,
+    );
     inMemoryProfessionalServicesRepository =
       new InMemoryProfessionalServicesRepository();
 

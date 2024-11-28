@@ -2,18 +2,31 @@ import { makeCompany } from 'test/factories/make-company';
 import { makeProfessional } from 'test/factories/make-professional';
 import { InMemoryCompanyRepository } from 'test/repositories/in-memory-company-repository';
 import { InMemoryProfessionalRepository } from 'test/repositories/in-memory-professional-repository';
+import { InMemoryProfessionalServicesRepository } from 'test/repositories/in-memory-professional-services-repository';
+import { InMemoryServiceRepository } from 'test/repositories/in-memory-service-repository';
 
 import { CompanyLinkAlreadyExistsError } from '../../errors/company-link-already-exists-error';
 import { EditCompanyLinkUseCase } from './edit-company-link';
 
 let inMemoryProfessionalRepository: InMemoryProfessionalRepository;
 let inMemoryCompanyRepository: InMemoryCompanyRepository;
+let inMemoryServiceRepository: InMemoryServiceRepository;
+let inMemoryProfessionalServicesRepository: InMemoryProfessionalServicesRepository;
 
 let sut: EditCompanyLinkUseCase;
 
 describe('Edit company link', () => {
   beforeEach(() => {
-    inMemoryProfessionalRepository = new InMemoryProfessionalRepository();
+    inMemoryProfessionalServicesRepository =
+      new InMemoryProfessionalServicesRepository();
+
+    inMemoryServiceRepository = new InMemoryServiceRepository(
+      inMemoryProfessionalServicesRepository,
+    );
+    inMemoryProfessionalRepository = new InMemoryProfessionalRepository(
+      inMemoryServiceRepository,
+      inMemoryProfessionalServicesRepository,
+    );
     inMemoryCompanyRepository = new InMemoryCompanyRepository();
 
     sut = new EditCompanyLinkUseCase(

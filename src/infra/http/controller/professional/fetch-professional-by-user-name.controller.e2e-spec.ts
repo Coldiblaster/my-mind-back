@@ -6,6 +6,7 @@ import { AddressFactory } from 'test/factories/make-address';
 import { CompanyFactory } from 'test/factories/make-company';
 import { ProfessionalFactory } from 'test/factories/make-professional';
 import { ProfessionalServicesFactory } from 'test/factories/make-professional-services';
+import { ServiceFactory } from 'test/factories/make-service';
 
 import { AppModule } from '@/infra/app.module';
 import { DatabaseModule } from '@/infra/database/database.module';
@@ -17,6 +18,9 @@ describe('Fetch Professional By UserName (E2E)', () => {
 
   let companyFactory: CompanyFactory;
   let addressFactory: AddressFactory;
+  let serviceFactory: ServiceFactory;
+  let professionalServicesFactory: ProfessionalServicesFactory;
+
   let jwt: JwtService;
 
   beforeAll(async () => {
@@ -28,6 +32,8 @@ describe('Fetch Professional By UserName (E2E)', () => {
         AddressFactory,
         JwtService,
         ProfessionalServicesFactory,
+        ProfessionalServicesFactory,
+        ServiceFactory,
       ],
     }).compile();
 
@@ -36,6 +42,8 @@ describe('Fetch Professional By UserName (E2E)', () => {
     professionalFactory = moduleRef.get(ProfessionalFactory);
     companyFactory = moduleRef.get(CompanyFactory);
     addressFactory = moduleRef.get(AddressFactory);
+    professionalServicesFactory = moduleRef.get(ProfessionalServicesFactory);
+    serviceFactory = moduleRef.get(ServiceFactory);
 
     jwt = moduleRef.get(JwtService);
 
@@ -48,12 +56,22 @@ describe('Fetch Professional By UserName (E2E)', () => {
       addressId: newAddress.id,
     });
 
+    const newService = await serviceFactory.makePrismaService({
+      description: 'Cabelo',
+      value: 30,
+    });
+
     const professional = await professionalFactory.makePrismaProfessional({
       providerId: 'mocked-provider-id',
       userName: 'joe-doe',
       name: 'Joe Doe',
       email: 'joedoe@email.com',
       companyId: newCompany.id,
+    });
+
+    await professionalServicesFactory.makePrismaProfessionalServices({
+      professionalId: professional.id,
+      serviceId: newService.id,
     });
 
     const accessToken = jwt.sign({
@@ -71,6 +89,12 @@ describe('Fetch Professional By UserName (E2E)', () => {
         name: 'Joe Doe',
         email: 'joedoe@email.com',
       }),
+      services: [
+        expect.objectContaining({
+          description: 'Cabelo',
+          value: 30,
+        }),
+      ],
     });
   });
 });

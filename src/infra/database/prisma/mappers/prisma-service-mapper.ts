@@ -10,8 +10,6 @@ export class PrismaServiceMapper {
         description: raw.description,
         time: raw.time,
         value: raw.value,
-        createdAt: raw.createdAt,
-        updatedAt: raw.updatedAt,
       },
       new UniqueEntityID(raw.id),
     );

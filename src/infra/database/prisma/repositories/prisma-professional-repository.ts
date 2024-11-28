@@ -2,7 +2,9 @@ import { Injectable } from '@nestjs/common';
 
 import { ProfessionalRepository } from '@/domain/platform/application/repositories/professional-repository';
 import { Professional } from '@/domain/platform/enterprise/entities/professional.entity';
+import { ProfessionalDetails } from '@/domain/platform/enterprise/entities/value-objects/professional-details';
 
+import { PrismaProfessionalDetailsMapper } from '../mappers/prisma-professional-details';
 import { PrismaProfessionalMapper } from '../mappers/prisma-professional-mapper';
 import { PrismaService } from '../prisma.service';
 
@@ -35,10 +37,19 @@ export class PrismaProfessionalRepository implements ProfessionalRepository {
     return PrismaProfessionalMapper.toDomain(professional);
   }
 
-  async findByUserName(userName: string): Promise<Professional | null> {
+  async findDetailsByUserName(
+    userName: string,
+  ): Promise<ProfessionalDetails | null> {
     const professional = await this.prisma.professional.findUnique({
       where: {
         userName,
+      },
+      include: {
+        professionalServices: {
+          select: {
+            service: true,
+          },
+        },
       },
     });
 
@@ -46,7 +57,10 @@ export class PrismaProfessionalRepository implements ProfessionalRepository {
       return null;
     }
 
-    return PrismaProfessionalMapper.toDomain(professional);
+    return PrismaProfessionalDetailsMapper.toDomain({
+      professional,
+      services: professional.professionalServices.map(ps => ps.service), // Mapeia os serviços diretamente
+    });
   }
 
   async findByID(id: string): Promise<Professional | null> {

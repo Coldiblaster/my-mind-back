@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 
 import { Either, left, right } from '@/core/either';
-import { Professional } from '@/domain/platform/enterprise/entities/professional.entity';
+import { ProfessionalDetails } from '@/domain/platform/enterprise/entities/value-objects/professional-details';
 
 import { ProfessionalUserNameAlreadyExistsError } from '../../errors/professional-user-name-already-exists-error';
 import { ProfessionalRepository } from '../../repositories/professional-repository';
@@ -13,7 +13,7 @@ interface FetchProfessionalByUserNameUseCaseRequest {
 type FetchProfessionalByUserNameUseCaseResponse = Either<
   ProfessionalUserNameAlreadyExistsError,
   {
-    professional: Professional;
+    professional: ProfessionalDetails;
   }
 >;
 
@@ -25,7 +25,7 @@ export class FetchProfessionalByUserNameUseCase {
     userName,
   }: FetchProfessionalByUserNameUseCaseRequest): Promise<FetchProfessionalByUserNameUseCaseResponse> {
     const professional =
-      await this.professionalRepository.findByUserName(userName);
+      await this.professionalRepository.findDetailsByUserName(userName);
 
     if (!professional) {
       return left(new ProfessionalUserNameAlreadyExistsError(userName));

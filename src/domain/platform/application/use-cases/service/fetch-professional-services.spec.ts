@@ -15,7 +15,10 @@ let sut: FetchProfessionalServicesUseCase;
 
 describe('Fetch Professional Services', () => {
   beforeEach(() => {
-    inMemoryProfessionalRepository = new InMemoryProfessionalRepository();
+    inMemoryProfessionalRepository = new InMemoryProfessionalRepository(
+      inMemoryServiceRepository,
+      inMemoryProfessionalServicesRepository,
+    );
 
     inMemoryProfessionalServicesRepository =
       new InMemoryProfessionalServicesRepository();
