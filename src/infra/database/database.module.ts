@@ -7,6 +7,7 @@ import { CompanyRepository } from '@/domain/platform/application/repositories/co
 import { OpeningHoursRepository } from '@/domain/platform/application/repositories/opening-hours-repository';
 import { ProfessionalRepository } from '@/domain/platform/application/repositories/professional-repository';
 import { ProfessionalServicesRepository } from '@/domain/platform/application/repositories/professional-services-repository';
+import { ProfessionalSocialMediaRepository } from '@/domain/platform/application/repositories/professional-social-media-repository';
 import { ServiceRepository } from '@/domain/platform/application/repositories/service-repository';
 import { ServiceSuggestionRepository } from '@/domain/platform/application/repositories/service-suggestion-repository';
 import { RegisterRepository } from '@/domain/register/application/repositories/register-repository';
@@ -20,6 +21,7 @@ import { PrismaCompanyRepository } from './prisma/repositories/prisma-company-re
 import { PrismaOpeningHoursRepository } from './prisma/repositories/prisma-opening-hours-repository ';
 import { PrismaProfessionalRepository } from './prisma/repositories/prisma-professional-repository';
 import { PrismaProfessionalServicesRepository } from './prisma/repositories/prisma-professional-services-repository';
+import { PrismaProfessionalSocialMediaRepository } from './prisma/repositories/prisma-professional-social-media-repository';
 import { PrismaRegisterRepository } from './prisma/repositories/prisma-register-repository';
 import { PrismaServiceRepository } from './prisma/repositories/prisma-service-repository';
 import { PrismaServiceSuggestionRepository } from './prisma/repositories/prisma-service-suggestion';
@@ -68,6 +70,14 @@ import { PrismaServiceSuggestionRepository } from './prisma/repositories/prisma-
       provide: CompanyRepository,
       useClass: PrismaCompanyRepository,
     },
+    {
+      provide: CompanyRepository,
+      useClass: PrismaCompanyRepository,
+    },
+    {
+      provide: ProfessionalSocialMediaRepository,
+      useClass: PrismaProfessionalSocialMediaRepository,
+    },
   ],
   exports: [
     PrismaService,
@@ -81,6 +91,7 @@ import { PrismaServiceSuggestionRepository } from './prisma/repositories/prisma-
     BusinessTypeRepository,
     AvailabilityRepository,
     CompanyRepository,
+    ProfessionalSocialMediaRepository,
   ],
 })
 export class DatabaseModule { }
